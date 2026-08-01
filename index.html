@@ -682,51 +682,62 @@ section + section { border-top: 1px solid var(--rule); }
 /* ============================================================
    Experiencia — timeline
    ============================================================ */
-.timeline { position: relative; padding-left: 34px; }
+/* Geometría compartida: línea y puntos se centran en el mismo eje (--tl-cx) */
+.timeline {
+  --tl-pad: 34px;  /* separación del texto respecto a la línea */
+  --tl-cx: 10px;   /* eje vertical de la línea, desde el borde de .timeline */
+  --tl-cy: 15px;   /* centro del punto, desde el inicio de cada puesto */
+  --tl-dot: 18px;
+  position: relative;
+  padding-left: var(--tl-pad);
+}
 .timeline::before {
   content: "";
-  position: absolute; left: 9px; top: 8px; bottom: 8px;
+  position: absolute;
+  left: var(--tl-cx); top: var(--tl-cy); bottom: 8px;
   width: 2px;
-  background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 12%, transparent));
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 50%, transparent), var(--rule));
   border-radius: 2px;
 }
 .tl-item { position: relative; padding-bottom: 40px; }
 .tl-item:last-child { padding-bottom: 0; }
-/* Punto de la línea de tiempo: relleno = puesto ya cursado (no pendiente) */
+/* Punto en gris: puesto ya cursado */
 .tl-item::before {
   content: "";
-  position: absolute; left: -34px; top: 7px;
-  width: 20px; height: 20px; border-radius: 50%;
-  background: var(--accent);
-  border: 3px solid var(--bg-alt);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
-}
-/* Check dentro del punto (trazo, no glifo de texto): refuerza que ya fue cursado */
-.tl-item::after {
-  content: "";
-  position: absolute; left: -25px; top: 15px;
-  width: 7px; height: 4px;
-  border-left: 2px solid var(--bg-alt);
-  border-bottom: 2px solid var(--bg-alt);
-  transform: translate(-50%, -60%) rotate(-45deg);
-  pointer-events: none;
-}
-/* Puesto actual: sin check, con anillo pulsante en su lugar */
-.tl-item.is-current::after {
-  left: -24px; top: 17px;
-  width: 24px; height: 24px;
-  border: 2px solid var(--accent);
+  position: absolute;
+  left: calc(var(--tl-cx) - var(--tl-pad));
+  top: var(--tl-cy);
+  width: var(--tl-dot); height: var(--tl-dot);
   border-radius: 50%;
   transform: translate(-50%, -50%);
+  background: var(--muted);
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--muted) 40%, transparent);
+}
+/* Puesto actual: acento + anillo pulsante */
+.tl-item.is-current::before {
+  background: var(--accent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.tl-item.is-current::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--tl-cx) - var(--tl-pad));
+  top: var(--tl-cy);
+  width: var(--tl-dot); height: var(--tl-dot);
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  pointer-events: none;
   animation: tl-pulse 2s ease-out infinite;
 }
 @keyframes tl-pulse {
-  0%   { transform: translate(-50%, -50%) scale(.7); opacity: .8; }
-  70%  { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
-  100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+  0%   { transform: translate(-50%, -50%) scale(1);   opacity: .7; }
+  70%  { transform: translate(-50%, -50%) scale(2.1); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(2.1); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .tl-item.is-current::after { animation: none; opacity: .5; }
+  .tl-item.is-current::after { animation: none; opacity: .45; transform: translate(-50%, -50%) scale(1.5); }
 }
 
 .tl-head {
