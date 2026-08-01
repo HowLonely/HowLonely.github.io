@@ -692,16 +692,44 @@ section + section { border-top: 1px solid var(--rule); }
 }
 .tl-item { position: relative; padding-bottom: 40px; }
 .tl-item:last-child { padding-bottom: 0; }
+/* Punto de la línea de tiempo: relleno = puesto ya cursado (no pendiente) */
 .tl-item::before {
   content: "";
   position: absolute; left: -34px; top: 7px;
   width: 20px; height: 20px; border-radius: 50%;
-  background: var(--bg-alt);
-  border: 3px solid var(--accent);
-}
-.tl-item.is-current::before {
   background: var(--accent);
+  border: 3px solid var(--bg-alt);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+/* Check dentro del punto: refuerza que ese puesto ya fue completado */
+.tl-item::after {
+  content: "✓";
+  position: absolute; left: -34px; top: 7px;
+  width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800; line-height: 1;
+  color: var(--bg-alt);
+  pointer-events: none;
+}
+/* Puesto actual: punto más vivo + anillo pulsante, en vez del check */
+.tl-item.is-current::before {
   box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.tl-item.is-current::after {
+  content: "";
+  left: -37px; top: 4px;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  animation: tl-pulse 1.8s ease-out infinite;
+}
+@keyframes tl-pulse {
+  0%   { transform: scale(.65); opacity: .9; }
+  70%  { transform: scale(1.55); opacity: 0; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tl-item.is-current::after { animation: none; opacity: .5; }
 }
 
 .tl-head {
@@ -765,6 +793,15 @@ section + section { border-top: 1px solid var(--rule); }
 .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.2,.7,.3,1); }
 .shot:hover img { transform: scale(1.035); }
 .shot.is-empty { cursor: default; }
+
+/* Capturas con variante light/dark: se muestra la que corresponda al tema activo */
+.shot-dark { display: none; }
+:root[data-theme="dark"] .shot-dark  { display: block; }
+:root[data-theme="dark"] .shot-light { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"] .shot-dark  { display: block; }
+  :root[data-theme="auto"] .shot-light { display: none; }
+}
 
 .thumbs {
   display: grid;
@@ -1358,33 +1395,41 @@ section + section { border-top: 1px solid var(--rule); }
       <article class="project project-featured reveal">
         <div class="project-media">
           <div class="shot" data-lightbox>
-            <img src="img/sala-control/01-dashboard.jpg" alt="Dashboard principal de la Sala de Control Operacional" loading="lazy">
+            <img class="shot-light" src="img/sala-control/01-dashboard-light.jpg" alt="Dashboard principal de la Sala de Control Operacional" loading="lazy">
+            <img class="shot-dark" src="img/sala-control/01-dashboard-dark.jpg" alt="Dashboard principal de la Sala de Control Operacional" loading="lazy">
             <div class="ph">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
               <small>Captura principal del proyecto</small>
-              <code>img/sala-control/01-dashboard.jpg</code>
+              <code>img/sala-control/01-dashboard-light.jpg</code>
+              <code>img/sala-control/01-dashboard-dark.jpg</code>
             </div>
           </div>
           <div class="thumbs">
             <div class="shot" data-lightbox>
-              <img src="img/sala-control/02-telemetria.jpg" alt="Vista de telemetría industrial" loading="lazy">
+              <img class="shot-light" src="img/sala-control/02-telemetria-light.jpg" alt="Vista de telemetría industrial" loading="lazy">
+              <img class="shot-dark" src="img/sala-control/02-telemetria-dark.jpg" alt="Vista de telemetría industrial" loading="lazy">
               <div class="ph">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M21 15l-5-5L5 21"/></svg>
-                <code>02-telemetria.jpg</code>
+                <code>02-telemetria-light.jpg</code>
+                <code>02-telemetria-dark.jpg</code>
               </div>
             </div>
             <div class="shot" data-lightbox>
-              <img src="img/sala-control/03-camaras.jpg" alt="Vista de cámaras en vivo" loading="lazy">
+              <img class="shot-light" src="img/sala-control/03-camaras-light.jpg" alt="Vista de cámaras en vivo" loading="lazy">
+              <img class="shot-dark" src="img/sala-control/03-camaras-dark.jpg" alt="Vista de cámaras en vivo" loading="lazy">
               <div class="ph">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M21 15l-5-5L5 21"/></svg>
-                <code>03-camaras.jpg</code>
+                <code>03-camaras-light.jpg</code>
+                <code>03-camaras-dark.jpg</code>
               </div>
             </div>
             <div class="shot" data-lightbox>
-              <img src="img/sala-control/04-dispositivo.jpg" alt="Dispositivo IoT 4-20 mA instalado en faena" loading="lazy">
+              <img class="shot-light" src="img/sala-control/04-dispositivo-light.jpg" alt="Dispositivo IoT 4-20 mA instalado en faena" loading="lazy">
+              <img class="shot-dark" src="img/sala-control/04-dispositivo-dark.jpg" alt="Dispositivo IoT 4-20 mA instalado en faena" loading="lazy">
               <div class="ph">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M21 15l-5-5L5 21"/></svg>
-                <code>04-dispositivo.jpg</code>
+                <code>04-dispositivo-light.jpg</code>
+                <code>04-dispositivo-dark.jpg</code>
               </div>
             </div>
           </div>
@@ -1441,11 +1486,13 @@ section + section { border-top: 1px solid var(--rule); }
         <article class="project reveal">
           <div class="project-media">
             <div class="shot" data-lightbox>
-              <img src="img/lavanderia/01-web.jpg" alt="Aplicación web administrativa del sistema de lavandería" loading="lazy">
+              <img class="shot-light" src="img/lavanderia/01-web-light.jpg" alt="Aplicación web administrativa del sistema de lavandería" loading="lazy">
+              <img class="shot-dark" src="img/lavanderia/01-web-dark.jpg" alt="Aplicación web administrativa del sistema de lavandería" loading="lazy">
               <div class="ph">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
                 <small>Captura del proyecto</small>
-                <code>img/lavanderia/01-web.jpg</code>
+                <code>img/lavanderia/01-web-light.jpg</code>
+                <code>img/lavanderia/01-web-dark.jpg</code>
               </div>
             </div>
           </div>
@@ -1493,11 +1540,13 @@ section + section { border-top: 1px solid var(--rule); }
         <article class="project reveal">
           <div class="project-media">
             <div class="shot" data-lightbox>
-              <img src="img/control-flota/01-mapa.jpg" alt="Plataforma de control de flota" loading="lazy">
+              <img class="shot-light" src="img/control-flota/01-mapa-light.jpg" alt="Plataforma de control de flota" loading="lazy">
+              <img class="shot-dark" src="img/control-flota/01-mapa-dark.jpg" alt="Plataforma de control de flota" loading="lazy">
               <div class="ph">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
                 <small>Captura del proyecto</small>
-                <code>img/control-flota/01-mapa.jpg</code>
+                <code>img/control-flota/01-mapa-light.jpg</code>
+                <code>img/control-flota/01-mapa-dark.jpg</code>
               </div>
             </div>
           </div>
@@ -2118,14 +2167,46 @@ section + section { border-top: 1px solid var(--rule); }
   document.querySelectorAll('.reveal').forEach(function (el) { revealer.observe(el); });
 
   /* ---------- Placeholders: marca los .shot cuya imagen no existe ---------- */
+  /* Cada .shot puede traer una variante .shot-light y otra .shot-dark. Si la
+     variante activa del tema no existe todavía, se usa la otra como respaldo
+     en vez de mostrar el marcador; solo se marca "vacío" si fallan ambas. */
   function markEmpty(img) {
     var holder = img.closest('.shot');
     if (holder) holder.classList.add('is-empty');
   }
+  function failed(img) {
+    return img.complete && img.naturalWidth === 0;
+  }
+  function handleImgError(img) {
+    var holder = img.closest('.shot');
+    if (!holder) return;
+    var other = img.classList.contains('shot-light')
+      ? holder.querySelector('.shot-dark')
+      : img.classList.contains('shot-dark')
+        ? holder.querySelector('.shot-light')
+        : null;
+    if (other && !failed(other)) {
+      img.style.display = 'none';
+      other.style.display = 'block';
+    } else if (other && failed(other)) {
+      markEmpty(img);
+    }
+    // si "other" aún no resolvió, se espera su propio evento load/error
+  }
   document.querySelectorAll('.shot img').forEach(function (img) {
-    img.addEventListener('error', function () { markEmpty(img); });
-    // Si ya falló antes de que se registrara el listener
-    if (img.complete && img.naturalWidth === 0) markEmpty(img);
+    img.addEventListener('error', function () { handleImgError(img); });
+    img.addEventListener('load', function () {
+      var holder = img.closest('.shot');
+      var other = holder && (img.classList.contains('shot-light')
+        ? holder.querySelector('.shot-dark')
+        : holder.querySelector('.shot-light'));
+      // si la otra variante ya había fallado, ahora que esta cargó, úsala de respaldo
+      if (other && failed(other)) {
+        other.style.display = 'none';
+        img.style.display = 'block';
+      }
+    });
+    if (failed(img)) handleImgError(img);
   });
 
   /* ---------- Lightbox ---------- */

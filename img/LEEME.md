@@ -3,18 +3,28 @@
 Coloca aquí tus archivos con **exactamente estos nombres**. Mientras no exista un archivo,
 la página muestra un marcador con el nombre esperado — no se rompe nada.
 
+## Variante light / dark
+
+Las capturas de proyectos (dashboards, apps) tienen **dos versiones**: una para el
+modo claro de la página y otra para el modo oscuro (`img/.../nombre-light.jpg` y
+`img/.../nombre-dark.jpg`). La página cambia automáticamente cuál se muestra según el
+tema activo (botón sol/luna), igual que el resto de la UI.
+
+Si solo subes la versión `-light`, esa se usa siempre como respaldo aunque el visitante
+esté en modo oscuro — no rompe nada mientras no tengas la captura en modo oscuro lista.
+
 ## Archivos esperados
 
 | Ruta | Qué va ahí | Tamaño recomendado |
 |---|---|---|
-| `img/sala-control/01-dashboard.jpg` | Captura principal del dashboard | 1600 × 1000 px |
-| `img/sala-control/02-telemetria.jpg` | Vista de telemetría / gráficos | 1600 × 1000 px |
-| `img/sala-control/03-camaras.jpg` | Vista de cámaras en vivo | 1600 × 1000 px |
-| `img/sala-control/04-dispositivo.jpg` | Foto del dispositivo IoT / ESP32 en faena | 1600 × 1000 px |
-| `img/lavanderia/01-web.jpg` | Captura de la web administrativa | 1600 × 1000 px |
-| `img/control-flota/01-mapa.jpg` | Captura de la plataforma de flota | 1600 × 1000 px |
-| `img/importador/01-flujo.jpg` | Captura o diagrama del microservicio | 1600 × 1000 px |
-| `img/og-cover.jpg` | Imagen de vista previa al compartir el link | 1200 × 630 px |
+| `img/sala-control/01-dashboard-light.jpg` / `-dark.jpg` | Captura principal del dashboard | 1600 × 1000 px |
+| `img/sala-control/02-telemetria-light.jpg` / `-dark.jpg` | Vista de telemetría / gráficos | 1600 × 1000 px |
+| `img/sala-control/03-camaras-light.jpg` / `-dark.jpg` | Vista de cámaras en vivo | 1600 × 1000 px |
+| `img/sala-control/04-dispositivo-light.jpg` / `-dark.jpg` | Foto del dispositivo IoT / ESP32 en faena | 1600 × 1000 px |
+| `img/lavanderia/01-web-light.jpg` / `-dark.jpg` | Captura de la web administrativa | 1600 × 1000 px |
+| `img/control-flota/01-mapa-light.jpg` / `-dark.jpg` | Captura de la plataforma de flota | 1600 × 1000 px |
+| `img/importador/01-flujo.jpg` | Captura o diagrama del microservicio (aún sin sección en la página) | 1600 × 1000 px |
+| `img/og-cover.jpg` | Imagen de vista previa al compartir el link (no tiene variante light/dark) | 1200 × 630 px |
 
 ## Recomendaciones
 
