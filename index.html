@@ -286,6 +286,7 @@ section + section { border-top: 1px solid var(--rule); }
 .icon-btn:hover { color: var(--accent); border-color: var(--accent); }
 .icon-btn:active { transform: scale(.94); }
 .icon-btn svg { width: 18px; height: 18px; }
+.lang-btn { font-size: .74rem; font-weight: 700; letter-spacing: .03em; }
 .theme-btn .moon { display: none; }
 :root[data-theme="dark"] .theme-btn .moon { display: block; }
 :root[data-theme="dark"] .theme-btn .sun  { display: none; }
@@ -1013,13 +1014,17 @@ section + section { border-top: 1px solid var(--rule); }
     </a>
 
     <nav class="nav-links" id="navLinks">
-      <a href="#sobre-mi">Sobre mí</a>
-      <a href="#experiencia">Experiencia</a>
-      <a href="#proyectos">Proyectos</a>
-      <a href="#stack">Stack</a>
-      <a href="#formacion">Formación</a>
-      <a href="#contacto">Contacto</a>
+      <a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a>
+      <a href="#experiencia" data-i18n="nav.experience">Experiencia</a>
+      <a href="#proyectos" data-i18n="nav.projects">Proyectos</a>
+      <a href="#stack" data-i18n="nav.stack">Stack</a>
+      <a href="#formacion" data-i18n="nav.education">Formación</a>
+      <a href="#contacto" data-i18n="nav.contact">Contacto</a>
     </nav>
+
+    <button class="icon-btn lang-btn" id="langBtn" type="button" aria-label="Switch to English" title="Switch language">
+      <span id="langLabel">EN</span>
+    </button>
 
     <button class="icon-btn theme-btn" id="themeBtn" type="button" aria-label="Cambiar tema" title="Cambiar tema">
       <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg>
@@ -1044,18 +1049,18 @@ section + section { border-top: 1px solid var(--rule); }
       <div class="hero-intro">
         <div class="status">
           <span class="dot"></span>
-          Disponible para nuevos desafíos
+          <span data-i18n="hero.status">Disponible para nuevos desafíos</span>
         </div>
 
         <h1>Ellian<br><span class="grad">Troncoso Torres</span></h1>
 
-        <p class="hero-role">
+        <p class="hero-role" data-i18n="hero.role">
           Desarrollador Full Stack
           <span class="sep">·</span> IoT Industrial
           <span class="sep">·</span> Telemetría &amp; Edge
         </p>
 
-        <p class="hero-lede">
+        <p class="hero-lede" data-i18n="hero.lede">
           Desarrollo <strong>soluciones Full Stack para IoT industrial y telemetría</strong>:
           conecto sensores y dispositivos en terreno con APIs, bases de datos,
           servicios backend y dashboards web listos para operar.
@@ -1064,11 +1069,11 @@ section + section { border-top: 1px solid var(--rule); }
         <div class="hero-actions">
           <a class="btn btn-primary" href="#proyectos">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-            Ver proyectos
+            <span data-i18n="hero.btnProjects">Ver proyectos</span>
           </a>
           <a class="btn btn-ghost" href="CV_Ellian_Troncoso_2026.html" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Descargar CV
+            <span data-i18n="hero.btnCV">Descargar CV</span>
           </a>
           <a class="btn btn-ghost" href="https://github.com/HowLonely" target="_blank" rel="me noopener">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.7 1.2 3.4.9.1-.7.4-1.2.7-1.5-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
@@ -1079,11 +1084,11 @@ section + section { border-top: 1px solid var(--rule); }
         <div class="hero-stats">
           <div>
             <div class="n">5+</div>
-            <div class="l">Aplicaciones end-to-end en producción</div>
+            <div class="l" data-i18n="hero.stat1">Aplicaciones end-to-end en producción</div>
           </div>
           <div>
             <div class="n">8+</div>
-            <div class="l">Módulos empresariales desarrollados</div>
+            <div class="l" data-i18n="hero.stat2">Módulos empresariales desarrollados</div>
           </div>
         </div>
       </div>
@@ -1091,21 +1096,21 @@ section + section { border-top: 1px solid var(--rule); }
       <div class="flow">
         <div class="flow-card">
           <div class="flow-head">
-            <span class="flow-title">Del sensor al dashboard</span>
+            <span class="flow-title" data-i18n="flow.title">Del sensor al dashboard</span>
             <span class="flow-badge">end-to-end</span>
           </div>
 
           <ol class="flow-list">
 
-            <li class="flow-zone">Campo · Sensores</li>
+            <li class="flow-zone" data-i18n="flow.zone1">Campo · Sensores</li>
 
             <li class="flow-node" style="--i:0">
               <span class="flow-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5a7 7 0 0 1 14 0"/><path d="M2 16a10 10 0 0 1 20 0"/><circle cx="12" cy="19" r="1.6"/></svg>
               </span>
               <span class="flow-text">
-                <b>Sensores en terreno</b>
-                <em>4–20 mA · Instrumentación y medición</em>
+                <b data-i18n="flow.node1.b">Sensores en terreno</b>
+                <em data-i18n="flow.node1.em">4–20 mA · Instrumentación y medición</em>
               </span>
               <span class="flow-pkt"></span>
             </li>
@@ -1115,13 +1120,13 @@ section + section { border-top: 1px solid var(--rule); }
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4"/></svg>
               </span>
               <span class="flow-text">
-                <b>Adquisición y digitalización</b>
+                <b data-i18n="flow.node2.b">Adquisición y digitalización</b>
                 <em>ESP32 · Advantech ADAM</em>
               </span>
               <span class="flow-pkt"></span>
             </li>
 
-            <li class="flow-zone">Edge · Borde</li>
+            <li class="flow-zone" data-i18n="flow.zone2">Edge · Borde</li>
 
             <li class="flow-node" style="--i:2.2">
               <span class="flow-icon">
@@ -1139,20 +1144,20 @@ section + section { border-top: 1px solid var(--rule); }
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 .5-8.97A6 6 0 0 0 6.3 8.6 4.5 4.5 0 0 0 7 19z"/></svg>
               </span>
               <span class="flow-text">
-                <b>Mensajería y normalización</b>
+                <b data-i18n="flow.node4.b">Mensajería y normalización</b>
                 <em>MQTT · APIs REST</em>
               </span>
               <span class="flow-pkt"></span>
             </li>
 
-            <li class="flow-zone">Plataforma · Software</li>
+            <li class="flow-zone" data-i18n="flow.zone3">Plataforma · Software</li>
 
             <li class="flow-node" style="--i:4.4">
               <span class="flow-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
               </span>
               <span class="flow-text">
-                <b>Backend y persistencia</b>
+                <b data-i18n="flow.node5.b">Backend y persistencia</b>
                 <em>Laravel · Django · PostgreSQL</em>
               </span>
               <span class="flow-pkt"></span>
@@ -1163,7 +1168,7 @@ section + section { border-top: 1px solid var(--rule); }
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 12l3-3 2.5 2.5L17 7"/></svg>
               </span>
               <span class="flow-text">
-                <b>Decisión operacional</b>
+                <b data-i18n="flow.node6.b">Decisión operacional</b>
                 <em>React · Next.js · dashboards</em>
               </span>
               <span class="flow-pkt"></span>
@@ -1173,7 +1178,7 @@ section + section { border-top: 1px solid var(--rule); }
 
           <div class="flow-foot">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Desarrollo <b>cada capa</b>, del sensor al dashboard</span>
+            <span data-i18n="flow.foot">Desarrollo <b>cada capa</b>, del sensor al dashboard</span>
           </div>
         </div>
       </div>
@@ -1187,16 +1192,16 @@ section + section { border-top: 1px solid var(--rule); }
      ========================================================== -->
 <section id="sobre-mi" class="section-alt">
   <div class="wrap">
-    <p class="eyebrow reveal">Perfil profesional</p>
-    <h2 class="section-title reveal">Donde el sensor se convierte en dato</h2>
-    <p class="section-lede reveal">
+    <p class="eyebrow reveal" data-i18n="about.eyebrow">Perfil profesional</p>
+    <h2 class="section-title reveal" data-i18n="about.title">Donde el sensor se convierte en dato</h2>
+    <p class="section-lede reveal" data-i18n="about.lede">
       Escribo código en toda la cadena del dato: captura del sensor, procesamiento
       en el borde, API, base de datos e interfaz de visualización.
     </p>
 
     <div class="about-grid">
       <div class="about-text reveal">
-        <p>
+        <p data-i18n="about.p1">
           Soy <strong>Ingeniero en Informática</strong> y trabajo como
           <strong>desarrollador Full Stack</strong> en el rubro minero, enfocado en
           <strong>IoT industrial y telemetría</strong>: sensores y dispositivos en faena
@@ -1204,14 +1209,14 @@ section + section { border-top: 1px solid var(--rule); }
           Hoy desarrollo el sistema que centraliza la supervisión operacional de una
           empresa de mitigación de polvo.
         </p>
-        <p>
+        <p data-i18n="about.p2">
           Trabajo las dos orillas. En el borde: controladores embebidos que digitalizan
           señales <strong>4–20 mA</strong>, y flujos en <strong>Node-RED</strong> que
           normalizan y publican por <strong>MQTT</strong> los datos de equipos de
           fabricantes distintos. En el software: la API, el modelo de datos, la lógica
           de negocio y la interfaz, con Laravel, Python, JavaScript y TypeScript.
         </p>
-        <p>
+        <p data-i18n="about.p3">
           Lo que más me gusta es el punto donde el mundo físico se vuelve dato:
           leer un sensor, normalizar formatos entre fabricantes distintos y que eso
           termine siendo un gráfico que alguien usa para tomar una decisión.
@@ -1226,8 +1231,8 @@ section + section { border-top: 1px solid var(--rule); }
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5a7 7 0 0 1 14 0"/><path d="M2 16a10 10 0 0 1 20 0"/><circle cx="12" cy="19" r="1.6"/></svg>
           </div>
           <div>
-            <h4>Telemetría e integración IoT</h4>
-            <p>Conectar sensores y dispositivos de faena con la plataforma de software, normalizando datos entre fabricantes distintos.</p>
+            <h4 data-i18n="cap1.h4">Telemetría e integración IoT</h4>
+            <p data-i18n="cap1.p">Conectar sensores y dispositivos de faena con la plataforma de software, normalizando datos entre fabricantes distintos.</p>
           </div>
         </div>
 
@@ -1236,8 +1241,8 @@ section + section { border-top: 1px solid var(--rule); }
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4"/></svg>
           </div>
           <div>
-            <h4>Edge computing y embebidos</h4>
-            <p>ESP32, Arduino, Raspberry Pi, Advantech ADAM y Node-RED: digitalizar y procesar la señal en el borde, antes de que llegue a la nube.</p>
+            <h4 data-i18n="cap2.h4">Edge computing y embebidos</h4>
+            <p data-i18n="cap2.p">ESP32, Arduino, Raspberry Pi, Advantech ADAM y Node-RED: digitalizar y procesar la señal en el borde, antes de que llegue a la nube.</p>
           </div>
         </div>
 
@@ -1246,8 +1251,8 @@ section + section { border-top: 1px solid var(--rule); }
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
           </div>
           <div>
-            <h4>Desarrollo Full Stack</h4>
-            <p>Laravel, Django, FastAPI, React y Next.js: del modelado de datos a la interfaz.</p>
+            <h4 data-i18n="cap3.h4">Desarrollo Full Stack</h4>
+            <p data-i18n="cap3.p">Laravel, Django, FastAPI, React y Next.js: del modelado de datos a la interfaz.</p>
           </div>
         </div>
 
@@ -1256,8 +1261,8 @@ section + section { border-top: 1px solid var(--rule); }
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>
           </div>
           <div>
-            <h4>Despliegue y datos</h4>
-            <p>PostgreSQL, Redis, Docker y Linux: dejar el sistema funcionando en producción, no solo en local.</p>
+            <h4 data-i18n="cap4.h4">Despliegue y datos</h4>
+            <p data-i18n="cap4.p">PostgreSQL, Redis, Docker y Linux: dejar el sistema funcionando en producción, no solo en local.</p>
           </div>
         </div>
       </div>
@@ -1769,6 +1774,298 @@ section + section { border-top: 1px solid var(--rule); }
     var next = current === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
     try { localStorage.setItem('theme', next); } catch (e) {}
+  });
+
+  /* ---------- Idioma ---------- */
+  var translations = {
+    es: {
+      'page.title': 'Ellian Troncoso Torres — Desarrollador Full Stack e IoT Industrial',
+      'nav.about': 'Sobre mí',
+      'nav.experience': 'Experiencia',
+      'nav.projects': 'Proyectos',
+      'nav.stack': 'Stack',
+      'nav.education': 'Formación',
+      'nav.contact': 'Contacto',
+      'hero.status': 'Disponible para nuevos desafíos',
+      'hero.role': 'Desarrollador Full Stack <span class="sep">·</span> IoT Industrial <span class="sep">·</span> Telemetría &amp; Edge',
+      'hero.lede': 'Desarrollo <strong>soluciones Full Stack para IoT industrial y telemetría</strong>: conecto sensores y dispositivos en terreno con APIs, bases de datos, servicios backend y dashboards web listos para operar.',
+      'hero.btnProjects': 'Ver proyectos',
+      'hero.btnCV': 'Descargar CV',
+      'hero.stat1': 'Aplicaciones end-to-end en producción',
+      'hero.stat2': 'Módulos empresariales desarrollados',
+      'flow.title': 'Del sensor al dashboard',
+      'flow.zone1': 'Campo · Sensores',
+      'flow.node1.b': 'Sensores en terreno',
+      'flow.node1.em': '4–20 mA · Instrumentación y medición',
+      'flow.node2.b': 'Adquisición y digitalización',
+      'flow.zone2': 'Edge · Borde',
+      'flow.node4.b': 'Mensajería y normalización',
+      'flow.zone3': 'Plataforma · Software',
+      'flow.node5.b': 'Backend y persistencia',
+      'flow.node6.b': 'Decisión operacional',
+      'flow.foot': 'Desarrollo <b>cada capa</b>, del sensor al dashboard',
+      'about.eyebrow': 'Perfil profesional',
+      'about.title': 'Donde el sensor se convierte en dato',
+      'about.lede': 'Escribo código en toda la cadena del dato: captura del sensor, procesamiento en el borde, API, base de datos e interfaz de visualización.',
+      'about.p1': 'Soy <strong>Ingeniero en Informática</strong> y trabajo como <strong>desarrollador Full Stack</strong> en el rubro minero, enfocado en <strong>IoT industrial y telemetría</strong>: sensores y dispositivos en faena por un lado, plataformas web y bases de datos por el otro. Hoy desarrollo el sistema que centraliza la supervisión operacional de una empresa de mitigación de polvo.',
+      'about.p2': 'Trabajo las dos orillas. En el borde: controladores embebidos que digitalizan señales <strong>4–20 mA</strong>, y flujos en <strong>Node-RED</strong> que normalizan y publican por <strong>MQTT</strong> los datos de equipos de fabricantes distintos. En el software: la API, el modelo de datos, la lógica de negocio y la interfaz, con Laravel, Python, JavaScript y TypeScript.',
+      'about.p3': 'Lo que más me gusta es el punto donde el mundo físico se vuelve dato: leer un sensor, normalizar formatos entre fabricantes distintos y que eso termine siendo un gráfico que alguien usa para tomar una decisión. Estoy en una etapa de aprender mucho y rápido, y busco equipos donde seguir creciendo como desarrollador.',
+      'cap1.h4': 'Telemetría e integración IoT',
+      'cap1.p': 'Conectar sensores y dispositivos de faena con la plataforma de software, normalizando datos entre fabricantes distintos.',
+      'cap2.h4': 'Edge computing y embebidos',
+      'cap2.p': 'ESP32, Arduino, Raspberry Pi, Advantech ADAM y Node-RED: digitalizar y procesar la señal en el borde, antes de que llegue a la nube.',
+      'cap3.h4': 'Desarrollo Full Stack',
+      'cap3.p': 'Laravel, Django, FastAPI, React y Next.js: del modelado de datos a la interfaz.',
+      'cap4.h4': 'Despliegue y datos',
+      'cap4.p': 'PostgreSQL, Redis, Docker y Linux: dejar el sistema funcionando en producción, no solo en local.'
+    },
+    en: {
+      'page.title': 'Ellian Troncoso Torres — Full Stack Developer and Industrial IoT',
+      'nav.about': 'About',
+      'nav.experience': 'Experience',
+      'nav.projects': 'Projects',
+      'nav.stack': 'Stack',
+      'nav.education': 'Education',
+      'nav.contact': 'Contact',
+      'hero.status': 'Available for new challenges',
+      'hero.role': 'Full Stack Developer <span class="sep">·</span> Industrial IoT <span class="sep">·</span> Telemetry &amp; Edge',
+      'hero.lede': 'I build <strong>Full Stack solutions for industrial IoT and telemetry</strong>: connecting field sensors and devices with APIs, databases, backend services and operation-ready web dashboards.',
+      'hero.btnProjects': 'View projects',
+      'hero.btnCV': 'Download CV',
+      'hero.stat1': 'End-to-end applications in production',
+      'hero.stat2': 'Business modules developed',
+      'flow.title': 'From sensor to dashboard',
+      'flow.zone1': 'Field · Sensors',
+      'flow.node1.b': 'Field sensors',
+      'flow.node1.em': '4–20 mA · Instrumentation and measurement',
+      'flow.node2.b': 'Acquisition and digitization',
+      'flow.zone2': 'Edge · Field computing',
+      'flow.node4.b': 'Messaging and normalization',
+      'flow.zone3': 'Platform · Software',
+      'flow.node5.b': 'Backend and persistence',
+      'flow.node6.b': 'Operational decision-making',
+      'flow.foot': 'I develop <b>every layer</b>, from sensor to dashboard',
+      'about.eyebrow': 'Professional profile',
+      'about.title': 'Where sensor data becomes software',
+      'about.lede': 'I write code across the full data chain: sensor capture, edge processing, APIs, databases and visualization interfaces.',
+      'about.p1': 'I am a <strong>Software Engineering graduate</strong> working as a <strong>Full Stack developer</strong> in the mining sector, focused on <strong>industrial IoT and telemetry</strong>: field sensors and devices on one side, web platforms and databases on the other. Today I develop the system that centralizes operational supervision for a dust mitigation company.',
+      'about.p2': 'I work across both sides of the stack. At the edge: embedded controllers that digitize <strong>4–20 mA</strong> signals, and <strong>Node-RED</strong> flows that normalize and publish data from different equipment manufacturers through <strong>MQTT</strong>. In software: APIs, data models, business logic and interfaces with Laravel, Python, JavaScript and TypeScript.',
+      'about.p3': 'What I enjoy most is the point where the physical world becomes data: reading a sensor, normalizing formats across different manufacturers and turning that into a chart someone uses to make a decision. I am in a stage of learning fast and deeply, looking for teams where I can keep growing as a developer.',
+      'cap1.h4': 'Telemetry and IoT integration',
+      'cap1.p': 'Connecting field sensors and devices with software platforms, normalizing data across different equipment manufacturers.',
+      'cap2.h4': 'Edge computing and embedded systems',
+      'cap2.p': 'ESP32, Arduino, Raspberry Pi, Advantech ADAM and Node-RED: digitizing and processing signals at the edge before they reach the cloud.',
+      'cap3.h4': 'Full Stack development',
+      'cap3.p': 'Laravel, Django, FastAPI, React and Next.js: from data modeling to user interfaces.',
+      'cap4.h4': 'Deployment and data',
+      'cap4.p': 'PostgreSQL, Redis, Docker and Linux: making systems work in production, not only locally.'
+    }
+  };
+
+  var selectorTranslations = {
+    es: {
+      '#experiencia .eyebrow': 'Trayectoria',
+      '#experiencia .section-title': 'Experiencia profesional',
+      '#experiencia .section-lede': 'Desde la práctica profesional hasta hoy, desarrollando el software que sostiene el día a día de una operación minera.',
+      '#experiencia .tl-item:nth-of-type(1) h3': 'Ingeniero Innovación y Desarrollo',
+      '#experiencia .tl-item:nth-of-type(1) .tl-date': 'Mayo 2026 — Actualidad',
+      '#experiencia .tl-item:nth-of-type(1) .tl-list li:nth-child(1)': 'Desarrollo una <strong>Sala de Control Operacional</strong> que centraliza el core del negocio: monitoreo ambiental, eficiencia de mitigación, consumo de producto, telemetría industrial y cámaras de faena.',
+      '#experiencia .tl-item:nth-of-type(1) .tl-list li:nth-child(2)': 'Implementé la adquisición, normalización y centralización de datos provenientes de <strong>instrumentación de monitoreo ambiental y sensores IoT industriales</strong>, mediante MQTT, Node-RED y APIs REST.',
+      '#experiencia .tl-item:nth-of-type(1) .tl-list li:nth-child(3)': 'Programé y diseñé una solución IoT basada en <strong>controladores embebidos</strong> para convertir señales industriales 4–20 mA en telemetría digital y monitorear estanques IBC.',
+      '#experiencia .tl-item:nth-of-type(1) .tl-list li:nth-child(4)': 'Integré cámaras IP vía <strong>RTSP, MediaMTX y WebRTC</strong>, e implementé dashboards, alertas, históricos, reportes, mapas e indicadores de disponibilidad operacional.',
+      '#experiencia .tl-item:nth-of-type(1) .tl-list li:nth-child(5)': 'Trabajo la integración entre sensores, dispositivos IoT y la plataforma de software, de punta a punta.',
+      '#experiencia .tl-item:nth-of-type(2) .tl-date': 'Junio 2025 — Abril 2026',
+      '#experiencia .tl-item:nth-of-type(2) .tl-list li:nth-child(1)': 'Lideré el desarrollo de <strong>ControlWorldMS</strong>, plataforma central de gestión administrativa y operacional, junto a un equipo de dos desarrolladores.',
+      '#experiencia .tl-item:nth-of-type(2) .tl-list li:nth-child(2)': 'Construí módulos de recursos humanos, flota, HSE, activos fijos, inventario, compras, presupuestos y órdenes de trabajo.',
+      '#experiencia .tl-item:nth-of-type(2) .tl-list li:nth-child(3)': 'Digitalicé el proceso de compras conforme a procedimientos alineados con <strong>ISO 9001</strong>, incorporando permisos, trazabilidad, documentación y aprobaciones.',
+      '#experiencia .tl-item:nth-of-type(2) .tl-list li:nth-child(4)': 'Participé en modelado de datos, backend, frontend, integraciones y despliegue.',
+      '#experiencia .tl-item:nth-of-type(2) .tl-list li:nth-child(5)': 'Extendí la plataforma hacia la operación con dashboards, reportes, mapas, telemetría y monitoreo de equipos en faena.',
+      '#experiencia .tl-item:nth-of-type(3) h3': 'Full Stack Developer — Práctica profesional',
+      '#experiencia .tl-item:nth-of-type(3) .tl-date': 'Marzo 2025 — Mayo 2025',
+      '#experiencia .tl-item:nth-of-type(3) .tl-list li:nth-child(1)': 'Desarrollé un <strong>MVP</strong> para digitalizar la gestión de recursos humanos con Laravel, Livewire, JavaScript y SQL.',
+      '#experiencia .tl-item:nth-of-type(3) .tl-list li:nth-child(2)': 'Realicé soporte técnico y resolución de incidencias para contratos en faenas mineras.',
+      '#experiencia .tl-item:nth-of-type(3) .tl-list li:nth-child(3)': 'Fui incorporado a <strong>jornada completa</strong> al terminar la práctica y he seguido creciendo en el equipo desde entonces.',
+      '#proyectos .eyebrow': 'Portafolio',
+      '#proyectos .section-title': 'Proyectos destacados',
+      '#proyectos .section-lede': 'Sistemas en producción que combinan hardware IoT, telemetría y software de gestión.',
+      '#proyectos .project-featured h3': 'Sala de Control Operacional',
+      '#proyectos .project-featured .project-body > p': 'Plataforma que centraliza la supervisión del negocio de mitigación de polvo, entregando visibilidad en tiempo real sobre las operaciones ejecutadas en faenas mineras. Incluye una solución IoT basada en controladores embebidos capaz de convertir señales 4–20 mA en telemetría digital para controlar el consumo de producto.',
+      '#proyectos .project-featured .feature-list li:nth-child(1)': 'Monitoreo ambiental y de material particulado',
+      '#proyectos .project-featured .feature-list li:nth-child(2)': 'Indicadores de eficiencia de mitigación y disponibilidad de equipos',
+      '#proyectos .project-featured .feature-list li:nth-child(3)': 'Nivel, consumo, recargas y autonomía de estanques IBC',
+      '#proyectos .project-featured .feature-list li:nth-child(4)': 'Cámaras en vivo para supervisión remota de faenas',
+      '#proyectos .project-featured .feature-list li:nth-child(5)': 'Alertas, históricos, mapas y reportes operacionales',
+      '#proyectos .project-featured .feature-list li:nth-child(6)': 'Normalización de datos de equipos de distintos fabricantes',
+      '#proyectos .projects-row .project:nth-of-type(1) h3': 'Sistema de Gestión para Lavandería Industrial',
+      '#proyectos .projects-row .project:nth-of-type(1) .project-body > p': 'Ecosistema multiplataforma que digitaliza el flujo operacional completo, desde la recepción de órdenes de trabajo hasta el procesamiento, control y empaque de prendas.',
+      '#proyectos .projects-row .project:nth-of-type(1) .feature-list li:nth-child(1)': 'API central en Django y Django Ninja',
+      '#proyectos .projects-row .project:nth-of-type(1) .feature-list li:nth-child(2)': 'Web administrativa en Next.js, React y TypeScript',
+      '#proyectos .projects-row .project:nth-of-type(1) .feature-list li:nth-child(3)': 'Terminal de escritorio en Electron para digitalización y empaque',
+      '#proyectos .projects-row .project:nth-of-type(1) .feature-list li:nth-child(4)': 'Trazabilidad por códigos QR y procesamiento asíncrono con Celery + Redis',
+      '#proyectos .projects-row .project:nth-of-type(1) .feature-list li:nth-child(5)': 'Integración tipada vía OpenAPI, JWT, Docker y AWS S3',
+      '#proyectos .projects-row .project:nth-of-type(2) h3': 'Plataforma de Control de Flota',
+      '#proyectos .projects-row .project:nth-of-type(2) .project-body > p': 'Aplicación Full Stack para centralizar la gestión y seguimiento de vehículos, con backend en Python e interfaz web en TypeScript.',
+      '#proyectos .projects-row .project:nth-of-type(2) .feature-list li:nth-child(1)': 'Registro y seguimiento de vehículos y asignaciones',
+      '#proyectos .projects-row .project:nth-of-type(2) .feature-list li:nth-child(2)': 'Backend desacoplado del frontend mediante API',
+      '#proyectos .projects-row .project:nth-of-type(2) .feature-list li:nth-child(3)': 'Interfaz web tipada y modular',
+      '#stack .eyebrow': 'Herramientas',
+      '#stack .section-title': 'Stack tecnológico',
+      '#stack .section-lede': 'Ordenado como trabajo: desde los sensores en terreno, pasando por el borde, hasta la plataforma web.',
+      '#stack .stack-card:nth-child(1) .chip:nth-child(1)': 'Señales 4–20 mA',
+      '#stack .stack-card:nth-child(1) .chip:nth-child(2)': 'Sensores industriales',
+      '#stack .stack-card:nth-child(1) .chip:nth-child(3)': 'Monitoreo ambiental',
+      '#stack .stack-card:nth-child(3) .chip:nth-child(6)': 'APIs REST',
+      '#formacion .eyebrow': 'Base',
+      '#formacion .section-title': 'Formación e idiomas',
+      '#formacion .section-lede': 'Formación académica y competencias lingüísticas.',
+      '#formacion .card:nth-child(1) h3': 'Ingeniería en Informática',
+      '#formacion .card:nth-child(1) .sub': 'INACAP · Febrero 2021 — Diciembre 2024',
+      '#formacion .card:nth-child(1) p:nth-of-type(2)': 'Desarrollo de software · Diseño de sistemas · Innovación tecnológica',
+      '#formacion .card:nth-child(2) h3': 'Idiomas',
+      '#formacion .lang:nth-of-type(1) b': 'Español',
+      '#formacion .lang:nth-of-type(1) span': 'Nativo',
+      '#formacion .lang:nth-of-type(2) b': 'Inglés',
+      '#formacion .lang:nth-of-type(2) span': 'Intermedio',
+      '#contacto .eyebrow': 'Contacto',
+      '#contacto h2': '¿Conversamos?',
+      '#contacto .wrap > p.reveal': 'Busco oportunidades como desarrollador Full Stack, especialmente en proyectos web, de datos o con integración a hardware. Escríbeme por el canal que prefieras.',
+      '#contacto .contact-card:nth-child(2) b': 'Teléfono',
+      '.footer a': 'Ver CV en formato A4'
+    },
+    en: {
+      '#experiencia .eyebrow': 'Career path',
+      '#experiencia .section-title': 'Professional experience',
+      '#experiencia .section-lede': 'From my professional internship to today, building the software that supports day-to-day mining operations.',
+      '#experiencia .tl-item:nth-of-type(1) h3': 'Innovation and Development Engineer',
+      '#experiencia .tl-item:nth-of-type(1) .tl-date': 'May 2026 — Present',
+      '#experiencia .tl-item:nth-of-type(1) .tl-list li:nth-child(1)': 'I develop an <strong>Operational Control Room</strong> that centralizes the business core: environmental monitoring, mitigation efficiency, product consumption, industrial telemetry and field cameras.',
+      '#experiencia .tl-item:nth-of-type(1) .tl-list li:nth-child(2)': 'I implemented acquisition, normalization and centralization of data from <strong>environmental monitoring instrumentation and industrial IoT sensors</strong> using MQTT, Node-RED and REST APIs.',
+      '#experiencia .tl-item:nth-of-type(1) .tl-list li:nth-child(3)': 'I designed and programmed an IoT solution based on <strong>embedded controllers</strong> to convert industrial 4–20 mA signals into digital telemetry and monitor IBC tanks.',
+      '#experiencia .tl-item:nth-of-type(1) .tl-list li:nth-child(4)': 'I integrated IP cameras through <strong>RTSP, MediaMTX and WebRTC</strong>, and built dashboards, alerts, histories, reports, maps and operational availability indicators.',
+      '#experiencia .tl-item:nth-of-type(1) .tl-list li:nth-child(5)': 'I work on the end-to-end integration between sensors, IoT devices and software platforms.',
+      '#experiencia .tl-item:nth-of-type(2) .tl-date': 'June 2025 — April 2026',
+      '#experiencia .tl-item:nth-of-type(2) .tl-list li:nth-child(1)': 'I led development of <strong>ControlWorldMS</strong>, a central administrative and operational management platform, alongside a two-developer team.',
+      '#experiencia .tl-item:nth-of-type(2) .tl-list li:nth-child(2)': 'I built modules for HR, fleet, HSE, fixed assets, inventory, purchasing, budgets and work orders.',
+      '#experiencia .tl-item:nth-of-type(2) .tl-list li:nth-child(3)': 'I digitized the purchasing process according to procedures aligned with <strong>ISO 9001</strong>, adding permissions, traceability, documentation and approvals.',
+      '#experiencia .tl-item:nth-of-type(2) .tl-list li:nth-child(4)': 'I contributed to data modeling, backend, frontend, integrations and deployment.',
+      '#experiencia .tl-item:nth-of-type(2) .tl-list li:nth-child(5)': 'I extended the platform into operations with dashboards, reports, maps, telemetry and field equipment monitoring.',
+      '#experiencia .tl-item:nth-of-type(3) h3': 'Full Stack Developer — Professional internship',
+      '#experiencia .tl-item:nth-of-type(3) .tl-date': 'March 2025 — May 2025',
+      '#experiencia .tl-item:nth-of-type(3) .tl-list li:nth-child(1)': 'I developed an <strong>MVP</strong> to digitize HR management with Laravel, Livewire, JavaScript and SQL.',
+      '#experiencia .tl-item:nth-of-type(3) .tl-list li:nth-child(2)': 'I provided technical support and incident resolution for mining site contracts.',
+      '#experiencia .tl-item:nth-of-type(3) .tl-list li:nth-child(3)': 'I was hired <strong>full time</strong> after finishing the internship and have continued growing with the team since then.',
+      '#proyectos .eyebrow': 'Portfolio',
+      '#proyectos .section-title': 'Featured projects',
+      '#proyectos .section-lede': 'Production systems combining IoT hardware, telemetry and management software.',
+      '#proyectos .project-featured h3': 'Operational Control Room',
+      '#proyectos .project-featured .project-body > p': 'A platform that centralizes supervision for a dust mitigation business, providing real-time visibility into operations performed at mining sites. It includes an IoT solution based on embedded controllers that converts 4–20 mA signals into digital telemetry to control product consumption.',
+      '#proyectos .project-featured .feature-list li:nth-child(1)': 'Environmental and particulate matter monitoring',
+      '#proyectos .project-featured .feature-list li:nth-child(2)': 'Mitigation efficiency and equipment availability indicators',
+      '#proyectos .project-featured .feature-list li:nth-child(3)': 'Level, consumption, refills and autonomy for IBC tanks',
+      '#proyectos .project-featured .feature-list li:nth-child(4)': 'Live cameras for remote field supervision',
+      '#proyectos .project-featured .feature-list li:nth-child(5)': 'Alerts, histories, maps and operational reports',
+      '#proyectos .project-featured .feature-list li:nth-child(6)': 'Data normalization across equipment from different manufacturers',
+      '#proyectos .projects-row .project:nth-of-type(1) h3': 'Industrial Laundry Management System',
+      '#proyectos .projects-row .project:nth-of-type(1) .project-body > p': 'A multiplatform ecosystem that digitizes the full operational flow, from receiving work orders to processing, control and garment packing.',
+      '#proyectos .projects-row .project:nth-of-type(1) .feature-list li:nth-child(1)': 'Central API with Django and Django Ninja',
+      '#proyectos .projects-row .project:nth-of-type(1) .feature-list li:nth-child(2)': 'Administrative web app with Next.js, React and TypeScript',
+      '#proyectos .projects-row .project:nth-of-type(1) .feature-list li:nth-child(3)': 'Electron desktop terminal for digitization and packing',
+      '#proyectos .projects-row .project:nth-of-type(1) .feature-list li:nth-child(4)': 'QR-code traceability and asynchronous processing with Celery + Redis',
+      '#proyectos .projects-row .project:nth-of-type(1) .feature-list li:nth-child(5)': 'Typed integration through OpenAPI, JWT, Docker and AWS S3',
+      '#proyectos .projects-row .project:nth-of-type(2) h3': 'Fleet Control Platform',
+      '#proyectos .projects-row .project:nth-of-type(2) .project-body > p': 'A Full Stack application to centralize vehicle management and tracking, with a Python backend and a TypeScript web interface.',
+      '#proyectos .projects-row .project:nth-of-type(2) .feature-list li:nth-child(1)': 'Vehicle and assignment registration and tracking',
+      '#proyectos .projects-row .project:nth-of-type(2) .feature-list li:nth-child(2)': 'Backend decoupled from the frontend through an API',
+      '#proyectos .projects-row .project:nth-of-type(2) .feature-list li:nth-child(3)': 'Typed and modular web interface',
+      '#stack .eyebrow': 'Tools',
+      '#stack .section-title': 'Technology stack',
+      '#stack .section-lede': 'Organized the way I work: from field sensors, through the edge, to the web platform.',
+      '#stack .stack-card:nth-child(1) .chip:nth-child(1)': '4–20 mA signals',
+      '#stack .stack-card:nth-child(1) .chip:nth-child(2)': 'Industrial sensors',
+      '#stack .stack-card:nth-child(1) .chip:nth-child(3)': 'Environmental monitoring',
+      '#stack .stack-card:nth-child(3) .chip:nth-child(6)': 'REST APIs',
+      '#formacion .eyebrow': 'Education',
+      '#formacion .section-title': 'Education and languages',
+      '#formacion .section-lede': 'Academic background and language skills.',
+      '#formacion .card:nth-child(1) h3': 'Software Engineering',
+      '#formacion .card:nth-child(1) .sub': 'INACAP · February 2021 — December 2024',
+      '#formacion .card:nth-child(1) p:nth-of-type(2)': 'Software development · Systems design · Technological innovation',
+      '#formacion .card:nth-child(2) h3': 'Languages',
+      '#formacion .lang:nth-of-type(1) b': 'Spanish',
+      '#formacion .lang:nth-of-type(1) span': 'Native',
+      '#formacion .lang:nth-of-type(2) b': 'English',
+      '#formacion .lang:nth-of-type(2) span': 'Intermediate',
+      '#contacto .eyebrow': 'Contact',
+      '#contacto h2': 'Let\'s talk',
+      '#contacto .wrap > p.reveal': 'I am looking for Full Stack developer opportunities, especially in web, data or hardware-integrated projects. Reach out through whichever channel you prefer.',
+      '#contacto .contact-card:nth-child(2) b': 'Phone',
+      '.footer a': 'View CV in A4 format'
+    }
+  };
+
+  var iconTextTranslations = {
+    es: {
+      '#proyectos .project-featured .project-tag': 'Proyecto principal',
+      '#proyectos .project-featured .link-pill': 'Proyecto privado — disponible en entrevista',
+      '#stack .stack-card:nth-child(1) h4': 'Campo · Sensores',
+      '#stack .stack-card:nth-child(2) h4': 'Edge · Borde',
+      '#stack .stack-card:nth-child(4) h4': 'Frontend y escritorio',
+      '#stack .stack-card:nth-child(5) h4': 'Datos e infraestructura',
+      '#stack .stack-card:nth-child(6) h4': 'Herramientas'
+    },
+    en: {
+      '#proyectos .project-featured .project-tag': 'Main project',
+      '#proyectos .project-featured .link-pill': 'Private project — available in interview',
+      '#stack .stack-card:nth-child(1) h4': 'Field · Sensors',
+      '#stack .stack-card:nth-child(2) h4': 'Edge · Field computing',
+      '#stack .stack-card:nth-child(4) h4': 'Frontend and desktop',
+      '#stack .stack-card:nth-child(5) h4': 'Data and infrastructure',
+      '#stack .stack-card:nth-child(6) h4': 'Tools'
+    }
+  };
+
+  var langBtn = document.getElementById('langBtn');
+  var langLabel = document.getElementById('langLabel');
+  var storedLang = null;
+  try { storedLang = localStorage.getItem('lang'); } catch (e) {}
+
+  function setLanguage(lang) {
+    if (!translations[lang]) lang = 'es';
+    document.documentElement.lang = lang === 'en' ? 'en' : 'es-CL';
+    document.title = translations[lang]['page.title'];
+
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n');
+      if (translations[lang][key]) el.innerHTML = translations[lang][key];
+    });
+
+    Object.keys(selectorTranslations[lang]).forEach(function (selector) {
+      document.querySelectorAll(selector).forEach(function (el) {
+        el.innerHTML = selectorTranslations[lang][selector];
+      });
+    });
+
+    Object.keys(iconTextTranslations[lang]).forEach(function (selector) {
+      document.querySelectorAll(selector).forEach(function (el) {
+        Array.prototype.slice.call(el.childNodes).forEach(function (node) {
+          if (node.nodeType === Node.TEXT_NODE) el.removeChild(node);
+        });
+        el.appendChild(document.createTextNode(' ' + iconTextTranslations[lang][selector]));
+      });
+    });
+
+    var nextLang = lang === 'en' ? 'es' : 'en';
+    langLabel.textContent = nextLang.toUpperCase();
+    langBtn.setAttribute('aria-label', lang === 'en' ? 'Cambiar a español' : 'Switch to English');
+    langBtn.setAttribute('title', lang === 'en' ? 'Cambiar a español' : 'Switch to English');
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+  }
+
+  setLanguage(storedLang === 'en' ? 'en' : 'es');
+
+  langBtn.addEventListener('click', function () {
+    var current = document.documentElement.lang === 'en' ? 'en' : 'es';
+    setLanguage(current === 'en' ? 'es' : 'en');
   });
 
   /* ---------- Menú móvil ---------- */
