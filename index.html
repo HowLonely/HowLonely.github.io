@@ -701,32 +701,29 @@ section + section { border-top: 1px solid var(--rule); }
   border: 3px solid var(--bg-alt);
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
 }
-/* Check dentro del punto: refuerza que ese puesto ya fue completado */
+/* Check dentro del punto (trazo, no glifo de texto): refuerza que ya fue cursado */
 .tl-item::after {
-  content: "✓";
-  position: absolute; left: -34px; top: 7px;
-  width: 20px; height: 20px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 800; line-height: 1;
-  color: var(--bg-alt);
+  content: "";
+  position: absolute; left: -25px; top: 15px;
+  width: 7px; height: 4px;
+  border-left: 2px solid var(--bg-alt);
+  border-bottom: 2px solid var(--bg-alt);
+  transform: translate(-50%, -60%) rotate(-45deg);
   pointer-events: none;
 }
-/* Puesto actual: punto más vivo + anillo pulsante, en vez del check */
-.tl-item.is-current::before {
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 18%, transparent);
-}
+/* Puesto actual: sin check, con anillo pulsante en su lugar */
 .tl-item.is-current::after {
-  content: "";
-  left: -37px; top: 4px;
-  width: 26px; height: 26px;
-  border-radius: 50%;
+  left: -24px; top: 17px;
+  width: 24px; height: 24px;
   border: 2px solid var(--accent);
-  animation: tl-pulse 1.8s ease-out infinite;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: tl-pulse 2s ease-out infinite;
 }
 @keyframes tl-pulse {
-  0%   { transform: scale(.65); opacity: .9; }
-  70%  { transform: scale(1.55); opacity: 0; }
-  100% { transform: scale(1.55); opacity: 0; }
+  0%   { transform: translate(-50%, -50%) scale(.7); opacity: .8; }
+  70%  { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .tl-item.is-current::after { animation: none; opacity: .5; }
