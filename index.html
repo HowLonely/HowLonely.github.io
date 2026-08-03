@@ -377,21 +377,11 @@ section + section { border-top: 1px solid var(--rule); }
   align-items: center;
 }
 
-/* Hero sin el diagrama .flow: una sola columna centrada.
+/* Hero sin el diagrama .flow: una sola columna, alineada a la izquierda.
    Al reactivar el diagrama, quitar la clase .is-solo del .hero-grid. */
-.hero-grid.is-solo {
-  grid-template-columns: minmax(0, 1fr);
-  justify-items: center;
-  text-align: center;
-}
-.hero-grid.is-solo .hero-intro { max-width: 720px; }
-.hero-grid.is-solo .hero-lede { margin-left: auto; margin-right: auto; }
-.hero-grid.is-solo .hero-actions { justify-content: center; }
-.hero-grid.is-solo .hero-stats {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  max-width: 420px;
-  margin-left: auto; margin-right: auto;
-}
+.hero-grid.is-solo { grid-template-columns: minmax(0, 1fr); }
+.hero-grid.is-solo .hero-intro { max-width: 760px; }
+.hero-grid.is-solo .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 420px; }
 
 .status {
   display: inline-flex; align-items: center; gap: 9px;
@@ -665,14 +655,21 @@ section + section { border-top: 1px solid var(--rule); }
    ============================================================ */
 .about-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
-  gap: clamp(32px, 5vw, 60px);
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 52px);
 }
+.about-text { max-width: 74ch; }
 .about-text p { margin: 0 0 16px; color: var(--ink-2); }
 .about-text strong { color: var(--ink); font-weight: 650; }
 
-.capabilities { display: grid; gap: 12px; }
+/* Las capacidades van debajo del texto, en su propio bloque de 2 columnas */
+.capabilities {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding-top: clamp(26px, 4vw, 38px);
+  border-top: 1px solid var(--rule);
+}
 .cap {
   display: flex; gap: 14px;
   padding: 16px 18px;
@@ -693,7 +690,7 @@ section + section { border-top: 1px solid var(--rule); }
 .cap h4 { font-size: .95rem; margin-bottom: 2px; }
 .cap p { margin: 0; font-size: .87rem; color: var(--muted); line-height: 1.5; }
 
-@media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .capabilities { grid-template-columns: 1fr; } }
 
 /* ============================================================
    Experiencia — timeline
