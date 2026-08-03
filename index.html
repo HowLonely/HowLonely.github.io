@@ -655,21 +655,18 @@ section + section { border-top: 1px solid var(--rule); }
    ============================================================ */
 .about-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: clamp(32px, 5vw, 52px);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+  gap: clamp(32px, 5vw, 60px);
+  align-items: start;
 }
-.about-text { max-width: 74ch; }
-.about-text p { margin: 0 0 16px; color: var(--ink-2); }
+/* El encabezado vive dentro de la columna de texto para que las tarjetas
+   arranquen a la misma altura que el eyebrow "Perfil profesional".
+   Por eso el :not(): el eyebrow y el lede conservan su propio estilo. */
+.about-text .section-lede { margin-bottom: 26px; }
+.about-text > p:not(.eyebrow):not(.section-lede) { margin: 0 0 16px; color: var(--ink-2); }
 .about-text strong { color: var(--ink); font-weight: 650; }
 
-/* Las capacidades van debajo del texto, en su propio bloque de 2 columnas */
-.capabilities {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  padding-top: clamp(26px, 4vw, 38px);
-  border-top: 1px solid var(--rule);
-}
+.capabilities { display: grid; gap: 12px; }
 .cap {
   display: flex; gap: 14px;
   padding: 16px 18px;
@@ -690,7 +687,7 @@ section + section { border-top: 1px solid var(--rule); }
 .cap h4 { font-size: .95rem; margin-bottom: 2px; }
 .cap p { margin: 0; font-size: .87rem; color: var(--muted); line-height: 1.5; }
 
-@media (max-width: 860px) { .capabilities { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; } }
 
 /* ============================================================
    Experiencia — timeline
@@ -1252,15 +1249,14 @@ section + section { border-top: 1px solid var(--rule); }
      ========================================================== -->
 <section id="sobre-mi" class="section-alt">
   <div class="wrap">
-    <p class="eyebrow reveal" data-i18n="about.eyebrow">Perfil profesional</p>
-    <h2 class="section-title reveal" data-i18n="about.title">Donde el sensor se convierte en dato</h2>
-    <p class="section-lede reveal" data-i18n="about.lede">
-      Escribo código en toda la cadena del dato: captura del sensor, procesamiento
-      en el borde, API, base de datos e interfaz de visualización.
-    </p>
-
     <div class="about-grid">
       <div class="about-text reveal">
+        <p class="eyebrow" data-i18n="about.eyebrow">Perfil profesional</p>
+        <h2 class="section-title" data-i18n="about.title">Donde el sensor se convierte en dato</h2>
+        <p class="section-lede" data-i18n="about.lede">
+          Escribo código en toda la cadena del dato: captura del sensor, procesamiento
+          en el borde, API, base de datos e interfaz de visualización.
+        </p>
         <p data-i18n="about.p1">
           Soy <strong>Ingeniero en Informática</strong> y desarrollador
           <strong>Full Stack</strong> orientado a <strong>IoT industrial y
