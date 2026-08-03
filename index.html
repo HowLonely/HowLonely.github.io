@@ -142,6 +142,13 @@
 
   --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Coloreado de sintaxis del editor del hero */
+  --tk-key: #8b3fbe;
+  --tk-fn:  #0e7490;
+  --tk-str: #2e7d32;
+  --tk-num: #b45309;
+  --tk-typ: #0b6f8c;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -167,6 +174,11 @@
     --rule:        #22303c;
     --shadow:      0 1px 2px rgba(0,0,0,.4), 0 12px 32px -12px rgba(0,0,0,.6);
     --shadow-lg:   0 2px 4px rgba(0,0,0,.4), 0 28px 60px -20px rgba(0,0,0,.75);
+    --tk-key:      #c792ea;
+    --tk-fn:       #56d3ec;
+    --tk-str:      #a5d6a7;
+    --tk-num:      #ffab70;
+    --tk-typ:      #7fd1e0;
   }
 }
 :root[data-theme="dark"] {
@@ -183,6 +195,11 @@
   --rule:        #22303c;
   --shadow:      0 1px 2px rgba(0,0,0,.4), 0 12px 32px -12px rgba(0,0,0,.6);
   --shadow-lg:   0 2px 4px rgba(0,0,0,.4), 0 28px 60px -20px rgba(0,0,0,.75);
+  --tk-key:      #c792ea;
+  --tk-fn:       #56d3ec;
+  --tk-str:      #a5d6a7;
+  --tk-num:      #ffab70;
+  --tk-typ:      #7fd1e0;
 }
 
 /* ============================================================
@@ -441,88 +458,115 @@ section + section { border-top: 1px solid var(--rule); }
 }
 .hero-stats .l { font-size: .78rem; color: var(--muted); line-height: 1.35; margin-top: 4px; }
 
-/* ---------- Señal 4–20 mA que se vuelve dato ---------- */
-.signal-card {
+/* ---------- Editor: una pestaña por capa del stack ---------- */
+.code-card {
   position: relative;
   background: var(--surface);
   border: 1px solid var(--rule);
-  border-radius: 18px;
+  border-radius: 16px;
   box-shadow: var(--shadow-lg);
-  padding: 18px 18px 16px;
   overflow: hidden;
 }
 /* Haz de luz que recorre el borde superior */
-.signal-card::before {
+.code-card::before {
   content: "";
   position: absolute; top: 0; left: 0; right: 0; height: 2px;
   background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
   background-size: 45% 100%;
   background-repeat: no-repeat;
   animation: flowScan 4.2s linear infinite;
+  z-index: 2;
 }
 
-.signal-head {
+.code-head {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 12px; margin-bottom: 12px;
+  gap: 12px;
+  padding: 12px 14px 0;
 }
-.signal-title {
-  font-size: .82rem; font-weight: 700;
-  letter-spacing: .04em; text-transform: uppercase;
-  color: var(--ink-2);
+.code-dots { display: flex; gap: 6px; }
+.code-dots i {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--rule);
 }
-.signal-title b { color: var(--accent); font-weight: 700; }
-.signal-badge {
-  font-size: .66rem; font-weight: 700; letter-spacing: .12em;
-  padding: 4px 9px; border-radius: 999px;
+.code-badge {
+  font-size: .64rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
   color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
 }
 
-.signal-svg { display: block; width: 100%; height: auto; }
-.signal-grid { stroke: var(--rule); stroke-width: 1; opacity: .55; }
-.signal-axis {
-  stroke: var(--accent); stroke-width: 1; stroke-dasharray: 3 4; opacity: .5;
+.code-tabs {
+  display: flex; gap: 2px;
+  padding: 10px 8px 0;
+  border-bottom: 1px solid var(--rule);
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+.code-tabs::-webkit-scrollbar { display: none; }
+.code-tab {
+  flex: none;
+  padding: 7px 11px;
+  border: 0; border-bottom: 2px solid transparent;
+  background: none;
+  font: inherit;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: .72rem;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .18s ease, border-color .18s ease;
+}
+.code-tab:hover { color: var(--ink-2); }
+.code-tab.is-active { color: var(--ink); border-bottom-color: var(--accent); }
 
-/* Las tres capas comparten el mismo trazado y la misma animación,
-   así el punto brillante viaja siempre en la cabeza de la traza. */
-.signal-base, .signal-trace, .signal-dot {
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.code-body {
+  margin: 0;
+  padding: 14px 14px 16px;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: .74rem;
+  line-height: 1.75;
+  /* Altura fija según el fragmento más largo (12 líneas): si no, la tarjeta
+     y el hero completo dan un salto cada vez que cambia la pestaña. */
+  min-height: 23.5em;
+  counter-reset: ln;
+  overflow-x: auto;
+  transition: opacity .2s ease;
 }
-.signal-base  { stroke: var(--ink-2); stroke-width: 2; opacity: .22; }
-.signal-trace { stroke: var(--accent); stroke-width: 2.4; stroke-dasharray: 170 1000; }
-.signal-dot   { stroke: var(--accent-glow); stroke-width: 7; stroke-dasharray: 1 999; }
-.signal-trace, .signal-dot { animation: signalSweep 4.6s linear infinite; }
-@keyframes signalSweep {
-  from { stroke-dashoffset: 1170; }
-  to   { stroke-dashoffset: 170; }
+.code-body.is-swapping { opacity: 0; }
+.code-line {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  color: var(--ink-2);
+  white-space: pre;
 }
+.code-line::before {
+  counter-increment: ln;
+  content: counter(ln);
+  position: absolute; left: 0;
+  width: 18px; text-align: right;
+  color: var(--muted); opacity: .45;
+}
+.tk-key { color: var(--tk-key); }
+.tk-fn  { color: var(--tk-fn); }
+.tk-str { color: var(--tk-str); }
+.tk-num { color: var(--tk-num); }
+.tk-typ { color: var(--tk-typ); }
+.tk-com { color: var(--muted); font-style: italic; }
 
-.signal-zones {
-  display: flex; justify-content: space-between;
-  font-size: .7rem; color: var(--muted);
-  margin-top: 2px;
-}
-.signal-zones span:last-child { color: var(--accent); }
-
-.signal-foot {
-  display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
-  margin-top: 14px; padding-top: 13px;
+.code-foot {
+  display: flex; align-items: center; gap: 9px;
+  padding: 12px 14px;
   border-top: 1px solid var(--rule);
-  font-size: .74rem; color: var(--ink-2);
+  font-size: .76rem; color: var(--ink-2);
 }
-.signal-foot i {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--accent); opacity: .5; flex: none;
+.code-foot .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); flex: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .signal-card::before, .signal-trace, .signal-dot { animation: none; }
-  .signal-dot { display: none; }
-  .signal-trace { stroke-dasharray: none; }
+  .code-card::before { animation: none; }
+  .code-body { transition: none; }
 }
 
 /* ---------- Diagrama animado: la cadena end-to-end ---------- */
@@ -1233,37 +1277,19 @@ section + section { border-top: 1px solid var(--rule); }
       </div>
 
       <div class="flow">
-        <div class="signal-card">
-          <div class="signal-head">
-            <span class="signal-title" data-i18n="sig.title">4–20 mA <b>→</b> dato</span>
-            <span class="signal-badge">ADC</span>
+        <div class="code-card" id="codeCard">
+          <div class="code-head">
+            <div class="code-dots"><i></i><i></i><i></i></div>
+            <span class="code-badge">full stack</span>
           </div>
 
-          <svg class="signal-svg" viewBox="0 0 320 140" role="img" aria-labelledby="sigDesc">
-            <title id="sigDesc" data-i18n="sig.alt">Una señal analógica de 4 a 20 mA que se convierte en una señal digital escalonada</title>
+          <div class="code-tabs" id="codeTabs" role="tablist"></div>
 
-            <g class="signal-grid" fill="none">
-              <path d="M0,35 H320 M0,70 H320 M0,105 H320"/>
-              <path d="M40,0 V140 M80,0 V140 M120,0 V140 M160,0 V140 M200,0 V140 M240,0 V140 M280,0 V140"/>
-            </g>
+          <pre class="code-body" id="codeBody" aria-live="polite"></pre>
 
-            <path class="signal-axis" fill="none" d="M150,6 V134"/>
-
-            <path class="signal-base"  pathLength="1000" d="M10,70 C27,70 27,40 45,40 C63,40 63,70 80,70 C97,70 97,100 115,100 C133,100 133,70 150,70 H165 V50 H180 V40 H195 V43 H210 V62 H225 V85 H240 V98 H255 V100 H270 V81 H285 V57 H300 V45 H312"/>
-            <path class="signal-trace" pathLength="1000" d="M10,70 C27,70 27,40 45,40 C63,40 63,70 80,70 C97,70 97,100 115,100 C133,100 133,70 150,70 H165 V50 H180 V40 H195 V43 H210 V62 H225 V85 H240 V98 H255 V100 H270 V81 H285 V57 H300 V45 H312"/>
-            <path class="signal-dot"   pathLength="1000" d="M10,70 C27,70 27,40 45,40 C63,40 63,70 80,70 C97,70 97,100 115,100 C133,100 133,70 150,70 H165 V50 H180 V40 H195 V43 H210 V62 H225 V85 H240 V98 H255 V100 H270 V81 H285 V57 H300 V45 H312"/>
-          </svg>
-
-          <div class="signal-zones">
-            <span data-i18n="sig.analog">analógica</span>
-            <span data-i18n="sig.digital">digital</span>
-          </div>
-
-          <div class="signal-foot">
-            <span>sensor</span><i></i>
-            <span>edge</span><i></i>
-            <span>API</span><i></i>
-            <span data-i18n="sig.step4">dashboard</span>
+          <div class="code-foot">
+            <span class="dot"></span>
+            <span id="codeLayer"></span>
           </div>
         </div>
       </div>
@@ -1979,11 +2005,6 @@ section + section { border-top: 1px solid var(--rule); }
       'hero.btnCV': 'Descargar CV',
       'hero.stat1': 'Aplicaciones end-to-end en producción',
       'hero.stat2': 'Módulos empresariales desarrollados',
-      'sig.title': '4–20 mA <b>→</b> dato',
-      'sig.alt': 'Una señal analógica de 4 a 20 mA que se convierte en una señal digital escalonada',
-      'sig.analog': 'analógica',
-      'sig.digital': 'digital',
-      'sig.step4': 'dashboard',
       'flow.title': 'Del sensor al dashboard',
       'flow.zone1': 'Campo · Sensores',
       'flow.node1.b': 'Sensores en terreno',
@@ -2025,11 +2046,6 @@ section + section { border-top: 1px solid var(--rule); }
       'hero.btnCV': 'Download CV',
       'hero.stat1': 'End-to-end applications in production',
       'hero.stat2': 'Business modules developed',
-      'sig.title': '4–20 mA <b>→</b> data',
-      'sig.alt': 'A 4 to 20 mA analog signal being converted into a stepped digital signal',
-      'sig.analog': 'analog',
-      'sig.digital': 'digital',
-      'sig.step4': 'dashboard',
       'flow.title': 'From sensor to dashboard',
       'flow.zone1': 'Field · Sensors',
       'flow.node1.b': 'Field sensors',
@@ -2312,6 +2328,147 @@ section + section { border-top: 1px solid var(--rule); }
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(function (el) { revealer.observe(el); });
+
+  /* ---------- Editor del hero: una pestaña por capa del stack ---------- */
+  /* Los fragmentos vienen pre-coloreados: son cortos y fijos, no vale la pena
+     arrastrar un resaltador de sintaxis completo solo para esto. */
+  var codeTabs = document.getElementById('codeTabs');
+  var codeBody = document.getElementById('codeBody');
+  var codeLayer = document.getElementById('codeLayer');
+
+  if (codeTabs && codeBody && codeLayer) {
+    var files = [
+      {
+        name: 'App.tsx',
+        layer: { es: 'Interfaz · React y TypeScript', en: 'Interface · React and TypeScript' },
+        lines: [
+          '<span class="tk-key">export function</span> <span class="tk-fn">Panel</span>({ id }: <span class="tk-typ">Props</span>) {',
+          '  <span class="tk-key">const</span> { data, isLoading } = <span class="tk-fn">useLecturas</span>(id);',
+          '',
+          '  <span class="tk-key">if</span> (isLoading) <span class="tk-key">return</span> &lt;<span class="tk-typ">Skeleton</span> /&gt;;',
+          '',
+          '  <span class="tk-key">return</span> (',
+          '    &lt;<span class="tk-typ">Grafico</span>',
+          '      series={data.series}',
+          '      unidad=<span class="tk-str">"µg/m³"</span>',
+          '    /&gt;',
+          '  );',
+          '}'
+        ]
+      },
+      {
+        name: 'api.py',
+        layer: { es: 'Backend · API y lógica de negocio', en: 'Backend · API and business logic' },
+        lines: [
+          '<span class="tk-fn">@router.get</span>(<span class="tk-str">"/equipos/{id}/lecturas"</span>)',
+          '<span class="tk-key">async def</span> <span class="tk-fn">listar</span>(',
+          '    id: <span class="tk-typ">int</span>,',
+          '    desde: <span class="tk-typ">datetime</span>,',
+          '    usuario: <span class="tk-typ">Usuario</span> = <span class="tk-fn">Depends</span>(auth),',
+          ') -&gt; <span class="tk-typ">list</span>[<span class="tk-typ">LecturaOut</span>]:',
+          '    <span class="tk-key">if not</span> usuario.<span class="tk-fn">puede_ver</span>(id):',
+          '        <span class="tk-key">raise</span> <span class="tk-typ">HTTPException</span>(<span class="tk-num">403</span>)',
+          '',
+          '    <span class="tk-key">return await</span> repo.<span class="tk-fn">rango</span>(id, desde)'
+        ]
+      },
+      {
+        name: 'schema.sql',
+        layer: { es: 'Datos · Modelado y consultas', en: 'Data · Modeling and queries' },
+        lines: [
+          '<span class="tk-key">create table</span> lectura (',
+          '  id         <span class="tk-typ">bigserial</span> <span class="tk-key">primary key</span>,',
+          '  equipo_id  <span class="tk-typ">int</span> <span class="tk-key">not null references</span> equipo,',
+          '  medido_en  <span class="tk-typ">timestamptz</span> <span class="tk-key">not null</span>,',
+          '  valor      <span class="tk-typ">numeric</span>(<span class="tk-num">10</span>,<span class="tk-num">2</span>) <span class="tk-key">not null</span>',
+          ');',
+          '',
+          '<span class="tk-com">-- las consultas filtran por equipo y fecha</span>',
+          '<span class="tk-key">create index on</span> lectura',
+          '  (equipo_id, medido_en <span class="tk-key">desc</span>);'
+        ]
+      },
+      {
+        name: 'device.ino',
+        layer: { es: 'Edge · Firmware y telemetría', en: 'Edge · Firmware and telemetry' },
+        lines: [
+          '<span class="tk-key">void</span> <span class="tk-fn">loop</span>() {',
+          '  <span class="tk-key">float</span> mA = <span class="tk-fn">leerCorriente</span>(PIN_SENSOR);',
+          '',
+          '  <span class="tk-key">if</span> (!mqtt.<span class="tk-fn">connected</span>()) <span class="tk-fn">reconectar</span>();',
+          '',
+          '  <span class="tk-fn">snprintf</span>(buf, <span class="tk-key">sizeof</span>(buf),',
+          '           <span class="tk-str">"{\\"mA\\":%.2f}"</span>, mA);',
+          '  mqtt.<span class="tk-fn">publish</span>(TOPIC, buf);',
+          '',
+          '  <span class="tk-fn">delay</span>(INTERVALO_MS);',
+          '}'
+        ]
+      }
+    ];
+
+    var current = 0;
+    var timer = null;
+    var AUTO_MS = 4200;
+
+    function lang() {
+      return document.documentElement.lang.indexOf('en') === 0 ? 'en' : 'es';
+    }
+
+    var buttons = files.map(function (file, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'code-tab';
+      b.textContent = file.name;
+      b.setAttribute('role', 'tab');
+      b.addEventListener('click', function () { show(i); restart(); });
+      codeTabs.appendChild(b);
+      return b;
+    });
+
+    function paint() {
+      var file = files[current];
+      codeBody.innerHTML = file.lines.map(function (l) {
+        return '<span class="code-line">' + (l || ' ') + '</span>';
+      }).join('');
+      codeLayer.textContent = file.layer[lang()];
+      buttons.forEach(function (b, i) {
+        b.classList.toggle('is-active', i === current);
+        b.setAttribute('aria-selected', i === current ? 'true' : 'false');
+      });
+    }
+
+    function show(i) {
+      if (i === current) return;
+      current = i;
+      codeBody.classList.add('is-swapping');
+      setTimeout(function () {
+        paint();
+        codeBody.classList.remove('is-swapping');
+      }, 200);
+    }
+
+    function restart() {
+      clearInterval(timer);
+      timer = setInterval(function () { show((current + 1) % files.length); }, AUTO_MS);
+    }
+
+    paint();
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) restart();
+
+    /* La etiqueta de capa depende del idioma, y el botón EN/ES solo cambia
+       el atributo lang del documento: se repinta cuando eso ocurre. */
+    new MutationObserver(function () {
+      codeLayer.textContent = files[current].layer[lang()];
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+
+    /* Pausa mientras el cursor está encima, para poder leer con calma */
+    var codeCard = document.getElementById('codeCard');
+    codeCard.addEventListener('mouseenter', function () { clearInterval(timer); });
+    codeCard.addEventListener('mouseleave', function () {
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) restart();
+    });
+  }
 
   /* ---------- Placeholders: marca los .shot cuya imagen no existe ---------- */
   /* Cada .shot puede traer una variante .shot-light y otra .shot-dark. Si la
