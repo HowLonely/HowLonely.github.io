@@ -2349,69 +2349,128 @@ section + section { border-top: 1px solid var(--rule); }
       {
         name: 'App.tsx',
         layer: { es: 'Interfaz · React y TypeScript', en: 'Interface · React and TypeScript' },
-        lines: [
-          '<span class="tk-key">export function</span> <span class="tk-fn">Panel</span>({ id }: <span class="tk-typ">Props</span>) {',
-          '  <span class="tk-key">const</span> { data, isLoading } = <span class="tk-fn">useLecturas</span>(id);',
-          '',
-          '  <span class="tk-key">if</span> (isLoading) <span class="tk-key">return</span> &lt;<span class="tk-typ">Skeleton</span> /&gt;;',
-          '',
-          '  <span class="tk-key">return</span> (',
-          '    &lt;<span class="tk-typ">Grafico</span>',
-          '      series={data.series}',
-          '      unidad=<span class="tk-str">"µg/m³"</span>',
-          '    /&gt;',
-          '  );',
-          '}'
-        ]
+        lines: {
+          es: [
+            '<span class="tk-key">export function</span> <span class="tk-fn">Panel</span>({ id }: <span class="tk-typ">Props</span>) {',
+            '  <span class="tk-key">const</span> { data, isLoading } = <span class="tk-fn">useLecturas</span>(id);',
+            '',
+            '  <span class="tk-key">if</span> (isLoading) <span class="tk-key">return</span> &lt;<span class="tk-typ">Skeleton</span> /&gt;;',
+            '',
+            '  <span class="tk-key">return</span> (',
+            '    &lt;<span class="tk-typ">Grafico</span>',
+            '      series={data.series}',
+            '      unidad=<span class="tk-str">"µg/m³"</span>',
+            '    /&gt;',
+            '  );',
+            '}'
+          ],
+          en: [
+            '<span class="tk-key">export function</span> <span class="tk-fn">Panel</span>({ id }: <span class="tk-typ">Props</span>) {',
+            '  <span class="tk-key">const</span> { data, isLoading } = <span class="tk-fn">useReadings</span>(id);',
+            '',
+            '  <span class="tk-key">if</span> (isLoading) <span class="tk-key">return</span> &lt;<span class="tk-typ">Skeleton</span> /&gt;;',
+            '',
+            '  <span class="tk-key">return</span> (',
+            '    &lt;<span class="tk-typ">Chart</span>',
+            '      series={data.series}',
+            '      unit=<span class="tk-str">"µg/m³"</span>',
+            '    /&gt;',
+            '  );',
+            '}'
+          ]
+        }
       },
       {
         name: 'api.py',
         layer: { es: 'Backend · API y lógica de negocio', en: 'Backend · API and business logic' },
-        lines: [
-          '<span class="tk-fn">@router.get</span>(<span class="tk-str">"/equipos/{id}/lecturas"</span>)',
-          '<span class="tk-key">async def</span> <span class="tk-fn">listar</span>(',
-          '    id: <span class="tk-typ">int</span>,',
-          '    desde: <span class="tk-typ">datetime</span>,',
-          '    usuario: <span class="tk-typ">Usuario</span> = <span class="tk-fn">Depends</span>(auth),',
-          ') -&gt; <span class="tk-typ">list</span>[<span class="tk-typ">LecturaOut</span>]:',
-          '    <span class="tk-key">if not</span> usuario.<span class="tk-fn">puede_ver</span>(id):',
-          '        <span class="tk-key">raise</span> <span class="tk-typ">HTTPException</span>(<span class="tk-num">403</span>)',
-          '',
-          '    <span class="tk-key">return await</span> repo.<span class="tk-fn">rango</span>(id, desde)'
-        ]
+        lines: {
+          es: [
+            '<span class="tk-fn">@router.get</span>(<span class="tk-str">"/equipos/{id}/lecturas"</span>)',
+            '<span class="tk-key">async def</span> <span class="tk-fn">listar</span>(',
+            '    id: <span class="tk-typ">int</span>,',
+            '    desde: <span class="tk-typ">datetime</span>,',
+            '    usuario: <span class="tk-typ">Usuario</span> = <span class="tk-fn">Depends</span>(auth),',
+            ') -&gt; <span class="tk-typ">list</span>[<span class="tk-typ">LecturaOut</span>]:',
+            '    <span class="tk-key">if not</span> usuario.<span class="tk-fn">puede_ver</span>(id):',
+            '        <span class="tk-key">raise</span> <span class="tk-typ">HTTPException</span>(<span class="tk-num">403</span>)',
+            '',
+            '    <span class="tk-key">return await</span> repo.<span class="tk-fn">rango</span>(id, desde)'
+          ],
+          en: [
+            '<span class="tk-fn">@router.get</span>(<span class="tk-str">"/devices/{id}/readings"</span>)',
+            '<span class="tk-key">async def</span> <span class="tk-fn">list_readings</span>(',
+            '    id: <span class="tk-typ">int</span>,',
+            '    since: <span class="tk-typ">datetime</span>,',
+            '    user: <span class="tk-typ">User</span> = <span class="tk-fn">Depends</span>(auth),',
+            ') -&gt; <span class="tk-typ">list</span>[<span class="tk-typ">ReadingOut</span>]:',
+            '    <span class="tk-key">if not</span> user.<span class="tk-fn">can_view</span>(id):',
+            '        <span class="tk-key">raise</span> <span class="tk-typ">HTTPException</span>(<span class="tk-num">403</span>)',
+            '',
+            '    <span class="tk-key">return await</span> repo.<span class="tk-fn">range</span>(id, since)'
+          ]
+        }
       },
       {
         name: 'schema.sql',
         layer: { es: 'Datos · Modelado y consultas', en: 'Data · Modeling and queries' },
-        lines: [
-          '<span class="tk-key">create table</span> lectura (',
-          '  id         <span class="tk-typ">bigserial</span> <span class="tk-key">primary key</span>,',
-          '  equipo_id  <span class="tk-typ">int</span> <span class="tk-key">not null references</span> equipo,',
-          '  medido_en  <span class="tk-typ">timestamptz</span> <span class="tk-key">not null</span>,',
-          '  valor      <span class="tk-typ">numeric</span>(<span class="tk-num">10</span>,<span class="tk-num">2</span>) <span class="tk-key">not null</span>',
-          ');',
-          '',
-          '<span class="tk-com">-- las consultas filtran por equipo y fecha</span>',
-          '<span class="tk-key">create index on</span> lectura',
-          '  (equipo_id, medido_en <span class="tk-key">desc</span>);'
-        ]
+        lines: {
+          es: [
+            '<span class="tk-key">create table</span> lectura (',
+            '  id         <span class="tk-typ">bigserial</span> <span class="tk-key">primary key</span>,',
+            '  equipo_id  <span class="tk-typ">int</span> <span class="tk-key">not null references</span> equipo,',
+            '  medido_en  <span class="tk-typ">timestamptz</span> <span class="tk-key">not null</span>,',
+            '  valor      <span class="tk-typ">numeric</span>(<span class="tk-num">10</span>,<span class="tk-num">2</span>) <span class="tk-key">not null</span>',
+            ');',
+            '',
+            '<span class="tk-com">-- las consultas filtran por equipo y fecha</span>',
+            '<span class="tk-key">create index on</span> lectura',
+            '  (equipo_id, medido_en <span class="tk-key">desc</span>);'
+          ],
+          en: [
+            '<span class="tk-key">create table</span> reading (',
+            '  id           <span class="tk-typ">bigserial</span> <span class="tk-key">primary key</span>,',
+            '  device_id    <span class="tk-typ">int</span> <span class="tk-key">not null references</span> device,',
+            '  measured_at  <span class="tk-typ">timestamptz</span> <span class="tk-key">not null</span>,',
+            '  value        <span class="tk-typ">numeric</span>(<span class="tk-num">10</span>,<span class="tk-num">2</span>) <span class="tk-key">not null</span>',
+            ');',
+            '',
+            '<span class="tk-com">-- queries always filter by device and date</span>',
+            '<span class="tk-key">create index on</span> reading',
+            '  (device_id, measured_at <span class="tk-key">desc</span>);'
+          ]
+        }
       },
       {
         name: 'device.ino',
         layer: { es: 'Edge · Firmware y telemetría', en: 'Edge · Firmware and telemetry' },
-        lines: [
-          '<span class="tk-key">void</span> <span class="tk-fn">loop</span>() {',
-          '  <span class="tk-key">float</span> mA = <span class="tk-fn">leerCorriente</span>(PIN_SENSOR);',
-          '',
-          '  <span class="tk-key">if</span> (!mqtt.<span class="tk-fn">connected</span>()) <span class="tk-fn">reconectar</span>();',
-          '',
-          '  <span class="tk-fn">snprintf</span>(buf, <span class="tk-key">sizeof</span>(buf),',
-          '           <span class="tk-str">"{\\"mA\\":%.2f}"</span>, mA);',
-          '  mqtt.<span class="tk-fn">publish</span>(TOPIC, buf);',
-          '',
-          '  <span class="tk-fn">delay</span>(INTERVALO_MS);',
-          '}'
-        ]
+        lines: {
+          es: [
+            '<span class="tk-key">void</span> <span class="tk-fn">loop</span>() {',
+            '  <span class="tk-key">float</span> mA = <span class="tk-fn">leerCorriente</span>(PIN_SENSOR);',
+            '',
+            '  <span class="tk-key">if</span> (!mqtt.<span class="tk-fn">connected</span>()) <span class="tk-fn">reconectar</span>();',
+            '',
+            '  <span class="tk-fn">snprintf</span>(buf, <span class="tk-key">sizeof</span>(buf),',
+            '           <span class="tk-str">"{\\"mA\\":%.2f}"</span>, mA);',
+            '  mqtt.<span class="tk-fn">publish</span>(TOPIC, buf);',
+            '',
+            '  <span class="tk-fn">delay</span>(INTERVALO_MS);',
+            '}'
+          ],
+          en: [
+            '<span class="tk-key">void</span> <span class="tk-fn">loop</span>() {',
+            '  <span class="tk-key">float</span> mA = <span class="tk-fn">readCurrent</span>(SENSOR_PIN);',
+            '',
+            '  <span class="tk-key">if</span> (!mqtt.<span class="tk-fn">connected</span>()) <span class="tk-fn">reconnect</span>();',
+            '',
+            '  <span class="tk-fn">snprintf</span>(buf, <span class="tk-key">sizeof</span>(buf),',
+            '           <span class="tk-str">"{\\"mA\\":%.2f}"</span>, mA);',
+            '  mqtt.<span class="tk-fn">publish</span>(TOPIC, buf);',
+            '',
+            '  <span class="tk-fn">delay</span>(INTERVAL_MS);',
+            '}'
+          ]
+        }
       }
     ];
 
@@ -2436,10 +2495,11 @@ section + section { border-top: 1px solid var(--rule); }
 
     function paint() {
       var file = files[current];
-      codeBody.innerHTML = file.lines.map(function (l) {
+      var idioma = lang();
+      codeBody.innerHTML = file.lines[idioma].map(function (l) {
         return '<span class="code-line">' + (l || ' ') + '</span>';
       }).join('');
-      codeLayer.textContent = file.layer[lang()];
+      codeLayer.textContent = file.layer[idioma];
       buttons.forEach(function (b, i) {
         b.classList.toggle('is-active', i === current);
         b.setAttribute('aria-selected', i === current ? 'true' : 'false');
@@ -2464,11 +2524,11 @@ section + section { border-top: 1px solid var(--rule); }
     paint();
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) restart();
 
-    /* La etiqueta de capa depende del idioma, y el botón EN/ES solo cambia
-       el atributo lang del documento: se repinta cuando eso ocurre. */
-    new MutationObserver(function () {
-      codeLayer.textContent = files[current].layer[lang()];
-    }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+    /* El fragmento y la etiqueta de capa dependen del idioma, y el botón EN/ES
+       solo cambia el atributo lang del documento: se repinta cuando eso ocurre. */
+    new MutationObserver(paint).observe(document.documentElement, {
+      attributes: true, attributeFilter: ['lang']
+    });
 
     /* Pausa mientras el cursor está encima, para poder leer con calma */
     var codeCard = document.getElementById('codeCard');
