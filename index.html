@@ -659,11 +659,11 @@ section + section { border-top: 1px solid var(--rule); }
   gap: clamp(32px, 5vw, 60px);
   align-items: start;
 }
-/* El encabezado vive dentro de la columna de texto para que las tarjetas
-   arranquen a la misma altura que el eyebrow "Perfil profesional".
-   Por eso el :not(): el eyebrow y el lede conservan su propio estilo. */
+/* El título y el lede viven dentro de la columna de texto para que las tarjetas
+   arranquen a la altura del título. El :not() deja que el lede
+   conserve su propio color y ancho máximo. */
 .about-text .section-lede { margin-bottom: 26px; }
-.about-text > p:not(.eyebrow):not(.section-lede) { margin: 0 0 16px; color: var(--ink-2); }
+.about-text > p:not(.section-lede) { margin: 0 0 16px; color: var(--ink-2); }
 .about-text strong { color: var(--ink); font-weight: 650; }
 
 .capabilities { display: grid; gap: 12px; }
@@ -1249,9 +1249,10 @@ section + section { border-top: 1px solid var(--rule); }
      ========================================================== -->
 <section id="sobre-mi" class="section-alt">
   <div class="wrap">
+    <p class="eyebrow reveal" data-i18n="about.eyebrow">Perfil profesional</p>
+
     <div class="about-grid">
       <div class="about-text reveal">
-        <p class="eyebrow" data-i18n="about.eyebrow">Perfil profesional</p>
         <h2 class="section-title" data-i18n="about.title">Donde el sensor se convierte en dato</h2>
         <p class="section-lede" data-i18n="about.lede">
           Escribo código en toda la cadena del dato: captura del sensor, procesamiento
