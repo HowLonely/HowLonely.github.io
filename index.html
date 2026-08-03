@@ -441,6 +441,90 @@ section + section { border-top: 1px solid var(--rule); }
 }
 .hero-stats .l { font-size: .78rem; color: var(--muted); line-height: 1.35; margin-top: 4px; }
 
+/* ---------- Señal 4–20 mA que se vuelve dato ---------- */
+.signal-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 18px;
+  box-shadow: var(--shadow-lg);
+  padding: 18px 18px 16px;
+  overflow: hidden;
+}
+/* Haz de luz que recorre el borde superior */
+.signal-card::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
+  background-size: 45% 100%;
+  background-repeat: no-repeat;
+  animation: flowScan 4.2s linear infinite;
+}
+
+.signal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin-bottom: 12px;
+}
+.signal-title {
+  font-size: .82rem; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase;
+  color: var(--ink-2);
+}
+.signal-title b { color: var(--accent); font-weight: 700; }
+.signal-badge {
+  font-size: .66rem; font-weight: 700; letter-spacing: .12em;
+  padding: 4px 9px; border-radius: 999px;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
+}
+
+.signal-svg { display: block; width: 100%; height: auto; }
+.signal-grid { stroke: var(--rule); stroke-width: 1; opacity: .55; }
+.signal-axis {
+  stroke: var(--accent); stroke-width: 1; stroke-dasharray: 3 4; opacity: .5;
+}
+
+/* Las tres capas comparten el mismo trazado y la misma animación,
+   así el punto brillante viaja siempre en la cabeza de la traza. */
+.signal-base, .signal-trace, .signal-dot {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.signal-base  { stroke: var(--ink-2); stroke-width: 2; opacity: .22; }
+.signal-trace { stroke: var(--accent); stroke-width: 2.4; stroke-dasharray: 170 1000; }
+.signal-dot   { stroke: var(--accent-glow); stroke-width: 7; stroke-dasharray: 1 999; }
+.signal-trace, .signal-dot { animation: signalSweep 4.6s linear infinite; }
+@keyframes signalSweep {
+  from { stroke-dashoffset: 1170; }
+  to   { stroke-dashoffset: 170; }
+}
+
+.signal-zones {
+  display: flex; justify-content: space-between;
+  font-size: .7rem; color: var(--muted);
+  margin-top: 2px;
+}
+.signal-zones span:last-child { color: var(--accent); }
+
+.signal-foot {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+  margin-top: 14px; padding-top: 13px;
+  border-top: 1px solid var(--rule);
+  font-size: .74rem; color: var(--ink-2);
+}
+.signal-foot i {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent); opacity: .5; flex: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signal-card::before, .signal-trace, .signal-dot { animation: none; }
+  .signal-dot { display: none; }
+  .signal-trace { stroke-dasharray: none; }
+}
+
 /* ---------- Diagrama animado: la cadena end-to-end ---------- */
 .flow { position: relative; justify-self: center; width: 100%; max-width: 400px; }
 .flow::after {
@@ -1099,7 +1183,7 @@ section + section { border-top: 1px solid var(--rule); }
      ========================================================== -->
 <section class="hero" id="inicio">
   <div class="wrap">
-    <div class="hero-grid is-solo">
+    <div class="hero-grid">
 
       <div class="hero-intro">
         <div class="status">
@@ -1144,6 +1228,42 @@ section + section { border-top: 1px solid var(--rule); }
           <div>
             <div class="n">8+</div>
             <div class="l" data-i18n="hero.stat2">Módulos empresariales desarrollados</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow">
+        <div class="signal-card">
+          <div class="signal-head">
+            <span class="signal-title" data-i18n="sig.title">4–20 mA <b>→</b> dato</span>
+            <span class="signal-badge">ADC</span>
+          </div>
+
+          <svg class="signal-svg" viewBox="0 0 320 140" role="img" aria-labelledby="sigDesc">
+            <title id="sigDesc" data-i18n="sig.alt">Una señal analógica de 4 a 20 mA que se convierte en una señal digital escalonada</title>
+
+            <g class="signal-grid" fill="none">
+              <path d="M0,35 H320 M0,70 H320 M0,105 H320"/>
+              <path d="M40,0 V140 M80,0 V140 M120,0 V140 M160,0 V140 M200,0 V140 M240,0 V140 M280,0 V140"/>
+            </g>
+
+            <path class="signal-axis" fill="none" d="M150,6 V134"/>
+
+            <path class="signal-base"  pathLength="1000" d="M10,70 C27,70 27,40 45,40 C63,40 63,70 80,70 C97,70 97,100 115,100 C133,100 133,70 150,70 H165 V50 H180 V40 H195 V43 H210 V62 H225 V85 H240 V98 H255 V100 H270 V81 H285 V57 H300 V45 H312"/>
+            <path class="signal-trace" pathLength="1000" d="M10,70 C27,70 27,40 45,40 C63,40 63,70 80,70 C97,70 97,100 115,100 C133,100 133,70 150,70 H165 V50 H180 V40 H195 V43 H210 V62 H225 V85 H240 V98 H255 V100 H270 V81 H285 V57 H300 V45 H312"/>
+            <path class="signal-dot"   pathLength="1000" d="M10,70 C27,70 27,40 45,40 C63,40 63,70 80,70 C97,70 97,100 115,100 C133,100 133,70 150,70 H165 V50 H180 V40 H195 V43 H210 V62 H225 V85 H240 V98 H255 V100 H270 V81 H285 V57 H300 V45 H312"/>
+          </svg>
+
+          <div class="signal-zones">
+            <span data-i18n="sig.analog">analógica</span>
+            <span data-i18n="sig.digital">digital</span>
+          </div>
+
+          <div class="signal-foot">
+            <span>sensor</span><i></i>
+            <span>edge</span><i></i>
+            <span>API</span><i></i>
+            <span data-i18n="sig.step4">dashboard</span>
           </div>
         </div>
       </div>
@@ -1859,6 +1979,11 @@ section + section { border-top: 1px solid var(--rule); }
       'hero.btnCV': 'Descargar CV',
       'hero.stat1': 'Aplicaciones end-to-end en producción',
       'hero.stat2': 'Módulos empresariales desarrollados',
+      'sig.title': '4–20 mA <b>→</b> dato',
+      'sig.alt': 'Una señal analógica de 4 a 20 mA que se convierte en una señal digital escalonada',
+      'sig.analog': 'analógica',
+      'sig.digital': 'digital',
+      'sig.step4': 'dashboard',
       'flow.title': 'Del sensor al dashboard',
       'flow.zone1': 'Campo · Sensores',
       'flow.node1.b': 'Sensores en terreno',
@@ -1900,6 +2025,11 @@ section + section { border-top: 1px solid var(--rule); }
       'hero.btnCV': 'Download CV',
       'hero.stat1': 'End-to-end applications in production',
       'hero.stat2': 'Business modules developed',
+      'sig.title': '4–20 mA <b>→</b> data',
+      'sig.alt': 'A 4 to 20 mA analog signal being converted into a stepped digital signal',
+      'sig.analog': 'analog',
+      'sig.digital': 'digital',
+      'sig.step4': 'dashboard',
       'flow.title': 'From sensor to dashboard',
       'flow.zone1': 'Field · Sensors',
       'flow.node1.b': 'Field sensors',
