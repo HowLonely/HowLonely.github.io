@@ -377,6 +377,22 @@ section + section { border-top: 1px solid var(--rule); }
   align-items: center;
 }
 
+/* Hero sin el diagrama .flow: una sola columna centrada.
+   Al reactivar el diagrama, quitar la clase .is-solo del .hero-grid. */
+.hero-grid.is-solo {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  text-align: center;
+}
+.hero-grid.is-solo .hero-intro { max-width: 720px; }
+.hero-grid.is-solo .hero-lede { margin-left: auto; margin-right: auto; }
+.hero-grid.is-solo .hero-actions { justify-content: center; }
+.hero-grid.is-solo .hero-stats {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 420px;
+  margin-left: auto; margin-right: auto;
+}
+
 .status {
   display: inline-flex; align-items: center; gap: 9px;
   padding: 6px 14px 6px 10px;
@@ -651,7 +667,7 @@ section + section { border-top: 1px solid var(--rule); }
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
   gap: clamp(32px, 5vw, 60px);
-  align-items: start;
+  align-items: center;
 }
 .about-text p { margin: 0 0 16px; color: var(--ink-2); }
 .about-text strong { color: var(--ink); font-weight: 650; }
@@ -1089,7 +1105,7 @@ section + section { border-top: 1px solid var(--rule); }
      ========================================================== -->
 <section class="hero" id="inicio">
   <div class="wrap">
-    <div class="hero-grid">
+    <div class="hero-grid is-solo">
 
       <div class="hero-intro">
         <div class="status">
